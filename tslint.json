@@ -6,7 +6,7 @@
     "object-literal-sort-keys": false,
     "trailing-comma": false,
     "class-name": true,
-    "semicolon": [true, "always"],
+    "semicolon": [false, "always"],
     "triple-equals": [true, "allow-null-check"],
     "eofline": true,
     "jsdoc-format": true,

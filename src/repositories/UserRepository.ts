@@ -21,8 +21,8 @@ export class UserRepository implements IUserRepository {
         return result;
     }
 
-    public async getUserByEmail(email: string): Promise<IUser | MongoError> {
-        const query = { email };
+    public async getUserByEmailOrUsername(email: string, username: string): Promise<IUser | MongoError> {
+        const query = { $or: { email, username } };
         const result = await this._userRepository.findOne(query);
         return result;
     }
