@@ -12,7 +12,11 @@ import { MongoError } from 'mongodb';
 import { Mongoose } from 'mongoose';
 import { Application, Request, Response } from 'express';
 
+import './controllers/UserController';
+
 // Import Routes
+import { RegisterRoutes } from './routes';
+import { authenticateUser } from './middleware/security/passport';
 
 class App {
   public app: Application;
@@ -52,11 +56,13 @@ class App {
     // Passport MW
     this.app.use(passport.initialize());
     this.app.use(passport.session());
-
+    authenticateUser(passport);
+    
     // Static
     this.app.use(express.static(path.join(__dirname, '../public')));
 
     // Call Routes
+    RegisterRoutes(this.app);
   }
 
   routes(): void {

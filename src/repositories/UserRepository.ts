@@ -1,15 +1,14 @@
-import {IUserRepository} from './IUserRepository';
-import {User, IUser, UserModel} from '../models/User';
-import {Model} from 'mongoose';
-import {MongoError} from 'mongodb';
+import { IUserRepository } from './IUserRepository';
+import { UserSchema, IUser, UserModel } from '../models/User';
+import { Model, model } from 'mongoose';
+import { MongoError } from 'mongodb';
 
 export class UserRepository implements IUserRepository {
     private _userRepository: UserModel;
 
-    contructor() {
-        this._userRepository = new Model();
+    constructor() {
+        this._userRepository = model<IUser>('User', UserSchema) as UserModel;
     }
-
     public async createUser(newUser: IUser): Promise<IUser | MongoError> {
         const result = await this._userRepository.create(newUser);
         return result;
@@ -22,7 +21,7 @@ export class UserRepository implements IUserRepository {
     }
 
     public async getUserByEmailOrUsername(email: string, username: string): Promise<IUser | MongoError> {
-        const query = { $or: { email, username } };
+        const query = { $or: [{ email }, { username }] };
         const result = await this._userRepository.findOne(query);
         return result;
     }

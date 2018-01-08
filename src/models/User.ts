@@ -1,6 +1,6 @@
 import {Document, Model, model, Schema} from 'mongoose';
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
     username: {
         type: String,
         required: true,
@@ -42,15 +42,40 @@ const UserSchema = new Schema({
 });
 
 export interface IUser extends Document {
-    username?: string;
+    username: string;
+    email: string;
     password?: string;
     createdOn?: Date;
     updatedOn?: Date;
     role?: string;
     lastVisited?: Date;
-    email?: string;
     profile?: IUserProfile;
     tasks?: string[];
+}
+
+export interface IUserVm {
+    username: string;
+    email: string;
+    password?: string;
+    createdOn?: Date;
+    updatedOn?: Date;
+    role?: string;
+    lastVisited?: Date;
+    profile?: IUserProfile;
+    tasks?: string[];
+}
+
+export interface ILoginResponse {
+    authToken: string,
+    user: {
+        username?: string,
+        email?: string,
+        createdOn?: Date,
+        updatedOn?: Date,
+        lastVisited?: Date,
+        role?: string,
+        profile?: IUserProfile
+    }
 }
 
 interface IUserProfile {

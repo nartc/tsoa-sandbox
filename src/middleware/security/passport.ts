@@ -1,4 +1,5 @@
 import * as config from 'config';
+import * as _passport from 'passport';
 import { PassportStatic } from 'passport';
 import { StrategyOptions, ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import { IUser } from '../../models/User';
@@ -25,6 +26,8 @@ export const authenticateUser = (passport: PassportStatic) => {
     }
   }));
 };
+
+export const expressAuthentication = _passport.authenticate('jwt', { session: false });
 
 interface IJwtPayload {
   user?: IUser;

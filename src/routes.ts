@@ -1,11 +1,65 @@
 /* tslint:disable */
 import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
+import { UserController } from './controllers/UserController';
+import * as passport from 'passport';
 import { expressAuthentication } from './middleware/security/passport';
 
 const models: TsoaRoute.Models = {
+    "INewUserParams": {
+        "properties": {
+            "username": { "dataType": "string", "required": true },
+            "email": { "dataType": "string", "required": true },
+            "password": { "dataType": "string", "required": true },
+        },
+    },
+    "ILoginParams": {
+        "properties": {
+            "username": { "dataType": "string" },
+            "email": { "dataType": "string" },
+            "password": { "dataType": "string" },
+        },
+    },
 };
 
 export function RegisterRoutes(app: any) {
+    app.post('/api/users/register',
+        function(request: any, response: any, next: any) {
+            const args = {
+                requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "INewUserParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.registerUser.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/users/login',
+        function(request: any, response: any, next: any) {
+            const args = {
+                loginParams: { "in": "body", "name": "loginParams", "required": true, "ref": "ILoginParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.login.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
 
 
     function promiseHandler(controllerObj: any, promise: any, response: any, next: any) {
@@ -32,26 +86,27 @@ export function RegisterRoutes(app: any) {
     }
 
     function getValidatedArgs(args: any, request: any): any[] {
-        const fieldErrors: FieldErrors = {};
-        const values = Object.keys(args).map((key) => {
+        const errorFields: FieldErrors = {};
+        const values = Object.keys(args).map(function(key) {
             const name = args[key].name;
             switch (args[key].in) {
                 case 'request':
                     return request;
                 case 'query':
-                    return ValidateParam(args[key], request.query[name], models, name, fieldErrors);
+                    return ValidateParam(args[key], request.query[name], models, name, errorFields);
                 case 'path':
-                    return ValidateParam(args[key], request.params[name], models, name, fieldErrors);
+                    return ValidateParam(args[key], request.params[name], models, name, errorFields);
                 case 'header':
-                    return ValidateParam(args[key], request.header(name), models, name, fieldErrors);
+                    return ValidateParam(args[key], request.header(name), models, name, errorFields);
                 case 'body':
-                    return ValidateParam(args[key], request.body, models, name, fieldErrors, name + '.');
+                    return ValidateParam(args[key], request.body, models, name, errorFields);
                 case 'body-prop':
-                    return ValidateParam(args[key], request.body[name], models, name, fieldErrors, 'body.');
+                    return ValidateParam(args[key], request.body[name], models, name, errorFields);
             }
         });
-        if (Object.keys(fieldErrors).length > 0) {
-            throw new ValidateError(fieldErrors, '');
+
+        if (Object.keys(errorFields).length > 0) {
+            throw new ValidateError(errorFields, '');
         }
         return values;
     }
