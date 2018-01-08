@@ -7,6 +7,6 @@ auth:
   jwt_secret: 'MySuperSecret'
 
 mongo:
-  mongo_uri: 'mongodb://tsoa-sandbox:password@ds245347.mlab.com:45347/tsoa-sandbox'
+  mongo_uri: ''
 
 loglevel: info
