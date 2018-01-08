@@ -24,7 +24,8 @@
     "no-trailing-whitespace": false,
     "no-implicit-dependencies": false,
     "no-console": false,
-    "no-duplicate-imports": false
+    "no-duplicate-imports": false,
+    "variable-name": false
   },
   "rulesDirectory": []
 

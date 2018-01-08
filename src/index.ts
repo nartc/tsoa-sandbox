@@ -6,7 +6,7 @@ import App from './app';
 
 debug('ts-express:server');
 
-const port = process.env.PORT || config.get('express.port');
+const port = normalizePort(process.env.PORT || config.get('express.port'));
 
 logger.info(`Listening on ${port}...`);
 
