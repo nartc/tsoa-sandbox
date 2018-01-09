@@ -5,11 +5,57 @@ import * as passport from 'passport';
 import { expressAuthentication } from './middleware/security/passport';
 
 const models: TsoaRoute.Models = {
+    "IMongoError": {
+        "properties": {
+            "code": { "dataType": "double" },
+            "message": { "dataType": "string" },
+            "name": { "dataType": "string" },
+            "stack": { "dataType": "string" },
+        },
+    },
+    "IErrorResponse": {
+        "properties": {
+            "error": { "ref": "IMongoError" },
+            "message": { "dataType": "string" },
+        },
+    },
+    "IUserProfile": {
+        "properties": {
+            "firstName": { "dataType": "string" },
+            "lastName": { "dataType": "string" },
+            "fullName": { "dataType": "string" },
+        },
+    },
+    "IUserVm": {
+        "properties": {
+            "username": { "dataType": "string", "required": true },
+            "email": { "dataType": "string", "required": true },
+            "password": { "dataType": "string" },
+            "createdOn": { "dataType": "datetime" },
+            "updatedOn": { "dataType": "datetime" },
+            "role": { "dataType": "string" },
+            "lastVisited": { "dataType": "datetime" },
+            "profile": { "ref": "IUserProfile" },
+            "tasks": { "dataType": "array", "array": { "dataType": "string" } },
+        },
+    },
     "INewUserParams": {
         "properties": {
             "username": { "dataType": "string", "required": true },
             "email": { "dataType": "string", "required": true },
             "password": { "dataType": "string", "required": true },
+        },
+    },
+    "ILoginResponse": {
+        "properties": {
+            "authToken": { "dataType": "string", "required": true },
+            "username": { "dataType": "string" },
+            "email": { "dataType": "string" },
+            "createdOn": { "dataType": "datetime" },
+            "updatedOn": { "dataType": "datetime" },
+            "lastVisited": { "dataType": "datetime" },
+            "role": { "dataType": "string" },
+            "profile": { "ref": "IUserProfile" },
         },
     },
     "ILoginParams": {

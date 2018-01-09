@@ -1,4 +1,4 @@
-import {Document, Model, model, Schema} from 'mongoose';
+import { Document, Model, model, Schema } from 'mongoose';
 
 export const UserSchema = new Schema({
     username: {
@@ -35,10 +35,12 @@ export const UserSchema = new Schema({
         lastName: String,
         fullName: String
     },
-    tasks: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Task'
-    }]
+    tasks: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Task'
+        }
+    ]
 });
 
 export interface IUser extends Document {
@@ -66,16 +68,15 @@ export interface IUserVm {
 }
 
 export interface ILoginResponse {
-    authToken: string,
-    user: {
-        username?: string,
-        email?: string,
-        createdOn?: Date,
-        updatedOn?: Date,
-        lastVisited?: Date,
-        role?: string,
-        profile?: IUserProfile
-    }
+    authToken: string;
+    _id?: string;
+    username?: string;
+    email?: string;
+    createdOn?: Date;
+    updatedOn?: Date;
+    lastVisited?: Date;
+    role?: string;
+    profile?: IUserProfile;
 }
 
 interface IUserProfile {

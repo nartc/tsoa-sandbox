@@ -1,8 +1,35 @@
 {
-  "routes": {
-    "basePath": "/api",
-    "entryFile": "./src/app.ts",
-    "routesDir": "./src",
-    "authenticationModule": "./src/middleware/security/passport"
-  }
+    "swagger": {
+        "info": {
+            "description": "TSOA-NodeExpress Documentation",
+            "version": "1.0.0",
+            "title": "TSOA-Node Express"
+        },
+        "tags": [
+            {
+                "name": "Auth",
+                "description": "Access to User's related RestAPI"
+            }
+        ],
+        "schemes": ["http", "https"],
+        "securityDefinitions": {
+            "JWT": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        },
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "outputDirectory": "./src",
+        "entryFile": "./src/app.ts",
+        "host": "localhost:8080",
+        "basePath": "/api"
+    },
+    "routes": {
+        "basePath": "/api",
+        "entryFile": "./src/app.ts",
+        "routesDir": "./src",
+        "authenticationModule": "./src/middleware/security/passport"
+    }
 }
