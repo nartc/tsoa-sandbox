@@ -55,46 +55,10 @@ export interface IUser extends Document {
     tasks?: string[];
 }
 
-export interface IUserVm {
-    username: string;
-    email: string;
-    password?: string;
-    createdOn?: Date;
-    updatedOn?: Date;
-    role?: string;
-    lastVisited?: Date;
-    profile?: IUserProfile;
-    tasks?: string[];
-}
-
-export interface ILoginResponse {
-    authToken: string;
-    _id?: string;
-    username?: string;
-    email?: string;
-    createdOn?: Date;
-    updatedOn?: Date;
-    lastVisited?: Date;
-    role?: string;
-    profile?: IUserProfile;
-}
-
-interface IUserProfile {
+export interface IUserProfile {
     firstName?: string;
     lastName?: string;
     fullName?: string;
-}
-
-export interface INewUserParams {
-    username: string;
-    email: string;
-    password: string;
-}
-
-export interface ILoginParams {
-    username?: string;
-    email?: string;
-    password?: string;
 }
 
 export type UserModel = Model<IUser>;

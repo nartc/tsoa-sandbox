@@ -26,15 +26,16 @@ const models: TsoaRoute.Models = {
             "fullName": { "dataType": "string" },
         },
     },
-    "IUserVm": {
+    "IUserResponse": {
         "properties": {
-            "username": { "dataType": "string", "required": true },
-            "email": { "dataType": "string", "required": true },
+            "_id": { "dataType": "string" },
+            "username": { "dataType": "string" },
+            "email": { "dataType": "string" },
             "password": { "dataType": "string" },
             "createdOn": { "dataType": "datetime" },
             "updatedOn": { "dataType": "datetime" },
-            "role": { "dataType": "string" },
             "lastVisited": { "dataType": "datetime" },
+            "role": { "dataType": "string" },
             "profile": { "ref": "IUserProfile" },
             "tasks": { "dataType": "array", "array": { "dataType": "string" } },
         },
@@ -49,6 +50,7 @@ const models: TsoaRoute.Models = {
     "ILoginResponse": {
         "properties": {
             "authToken": { "dataType": "string", "required": true },
+            "_id": { "dataType": "string" },
             "username": { "dataType": "string" },
             "email": { "dataType": "string" },
             "createdOn": { "dataType": "datetime" },

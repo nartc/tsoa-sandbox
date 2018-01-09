@@ -1,17 +1,18 @@
 import { Controller, Route, Post, Body, SuccessResponse, Example, Response, Tags } from 'tsoa';
-import { INewUserParams, IUser, User, IUserVm, ILoginParams, ILoginResponse } from '../models/User';
-import { IErrorResponse } from '../models/ErrorResponse';
+import { IUser, User } from '../models/User';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { MongoError } from 'mongodb';
 import { IUserRepository } from '../repositories/IUserRepository';
 import { UserRepository } from '../repositories/UserRepository';
 import { sign } from 'jsonwebtoken';
-
+import { INewUserParams, ILoginParams } from '../models/requests/index';
+import { IErrorResponse, ILoginResponse, IUserResponse } from '../models/responses/index';
 import * as config from 'config';
 import * as moment from 'moment';
 
 @Route('users')
 export class UserController extends Controller {
+
     private static resolveErrorResponse(error: MongoError | null, message: string): Promise<IErrorResponse> {
         const response: IErrorResponse = {
             error,
@@ -22,11 +23,12 @@ export class UserController extends Controller {
     }
 
     private readonly _userRepository: IUserRepository = new UserRepository();
-
-    // @Response<IErrorResponse>('default', 'Error occurred')
+    
+    @Response<IErrorResponse>('default', 'Error occurred')
+    @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')
     @Post('/register')
-    public async registerUser(@Body() requestBody: INewUserParams): Promise<IUser | IErrorResponse> {
+    public async registerUser(@Body() requestBody: INewUserParams): Promise<IUserResponse | IErrorResponse> {
         const username: string = requestBody.username;
         const password: string = requestBody.password;
         const email: string = requestBody.email;
@@ -48,28 +50,29 @@ export class UserController extends Controller {
         return result;
     }
 
-    // @Response<IErrorResponse>('default', 'Error Occured')
+    @Response<IErrorResponse>('default', 'Error Occured')
+    @Response<ILoginResponse>('200', 'Success')
     @Tags('Auth')
     @Post('/login')
-    public async login(@Body() loginParams: ILoginParams): Promise<ILoginResponse | IErrorResponse> {
+    public async login(@Body() loginParams: ILoginParams): Promise<ILoginResponse> {
         const username: string = loginParams.username;
         const email: string = loginParams.email;
         const password: string = loginParams.password;
 
-        const fetchedUser: IUser | MongoError = await this._userRepository.getUserByEmailOrUsername(email, username);
-        if (fetchedUser instanceof MongoError) 
-            return UserController.resolveErrorResponse(fetchedUser, fetchedUser.message);
+        const fetchedUser: IUser = await this._userRepository.getUserByEmailOrUsername(email, username);
+        // if (fetchedUser instanceof MongoError) 
+        //     return UserController.resolveErrorResponse(fetchedUser, fetchedUser.message);
 
-        if (!fetchedUser || fetchedUser === null) return UserController.resolveErrorResponse(null, 'Does not exist');
+        // if (!fetchedUser || fetchedUser === null) return UserController.resolveErrorResponse(null, 'Does not exist');
 
         const isMatched: boolean = await compare(password, fetchedUser.password);
 
-        if (!isMatched) return UserController.resolveErrorResponse(null, 'Password does not match');
+        // if (!isMatched) return UserController.resolveErrorResponse(null, 'Password does not match');
 
         const payload = { user: fetchedUser };
         const token: string = sign(payload, config.get('auth.jwt_secret'), { expiresIn: 1800 });
 
-        if (!token) return UserController.resolveErrorResponse(null, 'Error signing payload');
+        // if (!token) return UserController.resolveErrorResponse(null, 'Error signing payload');
 
         fetchedUser.lastVisited = moment().toDate();
         try {
@@ -85,11 +88,11 @@ export class UserController extends Controller {
                 role: result.role,
                 profile: result.profile
             };
-            return Promise.resolve(response);
+            return response;
         } catch (error) {
-            return UserController.resolveErrorResponse(
-                error instanceof MongoError ? error : null, 
-                error instanceof MongoError ? error.message : 'Unexpected Error');
+            // return UserController.resolveErrorResponse(
+            //     error instanceof MongoError ? error : null, 
+            //     error instanceof MongoError ? error.message : 'Unexpected Error');
         }
     }
 }

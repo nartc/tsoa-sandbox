@@ -4,6 +4,90 @@
 		"application/json"
 	],
 	"definitions": {
+		"IMongoError": {
+			"properties": {
+				"code": {
+					"type": "number",
+					"format": "double"
+				},
+				"message": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"stack": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IErrorResponse": {
+			"properties": {
+				"error": {
+					"$ref": "#/definitions/IMongoError"
+				},
+				"message": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IUserProfile": {
+			"properties": {
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IUserResponse": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"lastVisited": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"role": {
+					"type": "string"
+				},
+				"profile": {
+					"$ref": "#/definitions/IUserProfile"
+				},
+				"tasks": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"type": "object"
+		},
 		"INewUserParams": {
 			"properties": {
 				"username": {
@@ -20,6 +104,44 @@
 				"username",
 				"email",
 				"password"
+			],
+			"type": "object"
+		},
+		"ILoginResponse": {
+			"properties": {
+				"authToken": {
+					"type": "string"
+				},
+				"_id": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"lastVisited": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"role": {
+					"type": "string"
+				},
+				"profile": {
+					"$ref": "#/definitions/IUserProfile"
+				}
+			},
+			"required": [
+				"authToken"
 			],
 			"type": "object"
 		},
@@ -59,6 +181,12 @@
 						"schema": {
 							"type": "object"
 						}
+					},
+					"default": {
+						"description": "Error occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
 					}
 				},
 				"tags": [
@@ -87,7 +215,13 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"type": "object"
+							"$ref": "#/definitions/ILoginResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occured",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
 						}
 					}
 				},
