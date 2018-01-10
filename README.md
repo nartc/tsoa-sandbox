@@ -11,6 +11,7 @@ A personal project utilizing TSOA with Node, Express and MongoDB.
 1. Install `nodemon` globally if haven't
 2. Install `rimraf` globally if haven't
 3. Clone the project.
+5. Run `npm install`
 4. Run `npm run start-gen`
 5. Open browser on `localhost:8080/api/docs` to check out the Swagger API Documentation UI.
 
