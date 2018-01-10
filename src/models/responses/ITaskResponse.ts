@@ -1,4 +1,4 @@
-import { IUser, IUserVm } from '../User';
+import {IUserVm} from '../User';
 
 export interface ITaskResponse {
     _id?: string;

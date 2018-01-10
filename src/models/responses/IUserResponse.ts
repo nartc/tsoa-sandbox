@@ -1,5 +1,5 @@
-import { IUserProfile } from '../User';
-import { ITask, ITaskVm } from '../Task';
+import {ITaskVm} from '../Task';
+import {IUserProfile} from '../User';
 
 export interface IUserResponse {
     _id?: string;

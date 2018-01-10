@@ -1,7 +1,6 @@
-import { Document, Model, model, Schema } from 'mongoose';
-import { IUserVm, User } from './User';
-import { MongoError } from 'mongodb';
-import {IUserRepository} from '../repositories/IUserRepository';
+import {MongoError} from 'mongodb';
+import {Document, Model, model, Schema} from 'mongoose';
+import {User} from './User';
 
 export const TaskSchema = new Schema({
     title: {
@@ -35,7 +34,7 @@ export const TaskSchema = new Schema({
 });
 
 TaskSchema.post('remove', async (error: MongoError, task: ITask) => {
-    const user =  await User.findById(task.user);
+    const user = await User.findById(task.user);
     user.tasks.splice(user.tasks.indexOf(task._id, 1));
     user.save();
 });

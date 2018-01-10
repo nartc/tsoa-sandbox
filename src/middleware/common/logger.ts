@@ -1,8 +1,8 @@
-import * as winston from 'winston';
 import * as config from 'config';
-import * as expressWinston from 'express-winston';
-import {LoggerInstance} from 'winston';
 import {Application} from 'express';
+import * as expressWinston from 'express-winston';
+import * as winston from 'winston';
+import {LoggerInstance} from 'winston';
 
 export const logger: LoggerInstance = new winston.Logger();
 

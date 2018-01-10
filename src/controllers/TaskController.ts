@@ -1,27 +1,22 @@
-import { 
-    Controller, Route, Post, Body, SuccessResponse, Example, Response, Tags, Get, Request, Security, Path, Put, Delete 
-} from 'tsoa';
-import { ITask, Task } from '../models/Task';
-import { MongoError } from 'mongodb';
-import { ITaskRepository } from '../repositories/ITaskRepository';
-import { TaskRepository } from '../repositories/TaskRepository';
-import { INewTaskParams } from '../models/requests/index';
-import { IErrorResponse, ITaskResponse } from '../models/responses/index';
-import * as config from 'config';
+import {Request as eRequest} from 'express';
 import * as moment from 'moment';
-import { Request as eRequest } from 'express';
-import { IUser } from '../models/User';
-import {IUpdateTaskParams} from '../models/requests/IUpdateTaskParams';
+import {MongoError} from 'mongodb';
+import {Body, Controller, Delete, Get, Path, Post, Put, Request, Response, Route, Security, Tags} from 'tsoa';
+import {INewTaskParams, IUpdateTaskParams} from '../models/requests';
+import {IErrorResponse, ITaskResponse} from '../models/responses';
+import {ITask, Task} from '../models/Task';
+import {IUser} from '../models/User';
+import {ITaskRepository} from '../repositories/ITaskRepository';
+import {TaskRepository} from '../repositories/TaskRepository';
 
 @Route('tasks')
 export class TaskController extends Controller {
     private static resolveErrorResponse(error: MongoError | null, message: string): IErrorResponse {
-        const response: IErrorResponse = {
+        return {
             thrown: true,
             error,
             message
         };
-        return response;
     }
 
     private readonly _taskRepository: ITaskRepository = new TaskRepository();
@@ -34,15 +29,15 @@ export class TaskController extends Controller {
     public async getTasks(@Request() request: eRequest): Promise<ITaskResponse[]> {
         const currentUser: IUser = request.user;
 
-        if (currentUser instanceof MongoError) 
+        if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
-        if (!currentUser || currentUser === null) 
+        if (!currentUser || currentUser === null)
             throw TaskController.resolveErrorResponse(null, 'No current User');
 
         const result = await this._taskRepository.getTasks(currentUser._id);
 
-        if (result instanceof MongoError) 
+        if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error fetching Tasks');
 
         return result;
@@ -55,12 +50,12 @@ export class TaskController extends Controller {
     @Post('create')
     public async createTask(@Body() requestBody: INewTaskParams, @Request() request: eRequest): Promise<ITaskResponse> {
         const currentUser: IUser = request.user;
-        if (currentUser instanceof MongoError) 
+        if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
-        if (!currentUser || currentUser === null) 
+        if (!currentUser || currentUser === null)
             throw TaskController.resolveErrorResponse(null, 'No current User');
-        
+
         const newTask: ITask = new Task();
         newTask.title = requestBody.title;
         newTask.content = requestBody.content;
@@ -70,7 +65,7 @@ export class TaskController extends Controller {
 
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error creating new Task');
-        
+
         currentUser.tasks.push(result._id);
         try {
             currentUser.save();
@@ -87,17 +82,17 @@ export class TaskController extends Controller {
     @Get('{slug}')
     public async getSingleTask(@Path() slug: string, @Request() request: eRequest): Promise<ITaskResponse> {
         const currentUser: IUser = request.user;
-        if (currentUser instanceof MongoError) 
+        if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
-        if (!currentUser || currentUser === null) 
+        if (!currentUser || currentUser === null)
             throw TaskController.resolveErrorResponse(null, 'No current User');
-        
+
         const result = await this._taskRepository.getTaskBySlug(slug);
 
-        if (result instanceof MongoError) 
+        if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error fetching Task');
-        
+
         return result;
     }
 
@@ -106,23 +101,21 @@ export class TaskController extends Controller {
     @Tags('Task')
     @Security('JWT')
     @Put('{slug}')
-    public async updateTask(
-        @Path() slug: string, 
-        @Body() updatedTask: IUpdateTaskParams, 
-        @Request() request: eRequest
-    ): Promise<ITaskResponse> {
+    public async updateTask(@Path() slug: string,
+                            @Body() updatedTask: IUpdateTaskParams,
+                            @Request() request: eRequest): Promise<ITaskResponse> {
         const currentUser: IUser = request.user;
-        if (currentUser instanceof MongoError) 
+        if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
-        if (!currentUser || currentUser === null) 
+        if (!currentUser || currentUser === null)
             throw TaskController.resolveErrorResponse(null, 'No current User');
-        
+
         const currentTask: ITask | MongoError = await this._taskRepository.getTaskBySlug(slug);
 
-        if (currentTask instanceof MongoError) 
+        if (currentTask instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentTask, 'Error fetching Task');
-        
+
         currentTask.title = updatedTask.title;
         currentTask.content = updatedTask.content;
         currentTask.slug = this.generateSlug(currentTask._id, updatedTask.title);
@@ -136,7 +129,7 @@ export class TaskController extends Controller {
 
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error updating Task');
-        
+
         return result;
     }
 
@@ -145,17 +138,15 @@ export class TaskController extends Controller {
     @Tags('Task')
     @Security('JWT')
     @Delete('{slug}')
-    public async removeTask(
-        @Path() slug: string, 
-        @Request() request: eRequest
-    ): Promise<ITaskResponse> {
+    public async removeTask(@Path() slug: string,
+                            @Request() request: eRequest): Promise<ITaskResponse> {
         const currentUser: IUser = request.user;
-        if (currentUser instanceof MongoError) 
+        if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
-        if (!currentUser || currentUser === null) 
+        if (!currentUser || currentUser === null)
             throw TaskController.resolveErrorResponse(null, 'No current User');
-        
+
         const result = await this._taskRepository.deleteTask(slug);
 
         if (result instanceof MongoError)

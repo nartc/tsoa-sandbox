@@ -1,30 +1,28 @@
-import { Controller, Route, Post, Body, SuccessResponse, Example, Response, Tags } from 'tsoa';
-import { IUser, User } from '../models/User';
-import { hash, genSalt, compare } from 'bcryptjs';
-import { MongoError } from 'mongodb';
-import { IUserRepository } from '../repositories/IUserRepository';
-import { TaskRepository } from '../repositories/UserRepository';
-import { sign } from 'jsonwebtoken';
-import { INewUserParams, ILoginParams } from '../models/requests/index';
-import { IErrorResponse, ILoginResponse, IUserResponse } from '../models/responses/index';
+import {compare, genSalt, hash} from 'bcryptjs';
 import * as config from 'config';
+import {sign} from 'jsonwebtoken';
 import * as moment from 'moment';
+import {MongoError} from 'mongodb';
+import {Body, Controller, Post, Response, Route, Tags} from 'tsoa';
+import {ILoginParams, INewUserParams} from '../models/requests';
+import {IErrorResponse, ILoginResponse, IUserResponse} from '../models/responses';
+import {IUser, User} from '../models/User';
+import {IUserRepository} from '../repositories/IUserRepository';
+import {TaskRepository} from '../repositories/UserRepository';
 
 @Route('users')
 export class UserController extends Controller {
 
     private static resolveErrorResponse(error: MongoError | null, message: string): IErrorResponse {
-        const response: IErrorResponse = {
+        return {
             thrown: true,
             error,
             message
         };
-
-        return response;
     }
 
     private readonly _userRepository: IUserRepository = new TaskRepository();
-    
+
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')
@@ -47,11 +45,10 @@ export class UserController extends Controller {
         const salt = await genSalt(10);
         newUser.password = await hash(password, salt);
 
-        const result = await this._userRepository.createUser(newUser);
-        return result;
+        return await this._userRepository.createUser(newUser);
     }
 
-    @Response<IErrorResponse>('default', 'Error Occured')
+    @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ILoginResponse>('200', 'Success')
     @Tags('Auth')
     @Post('/login')
@@ -61,7 +58,7 @@ export class UserController extends Controller {
         const password: string = loginParams.password;
 
         const fetchedUser: IUser = await this._userRepository.getUserByEmailOrUsername(email, username);
-        if (fetchedUser instanceof MongoError) 
+        if (fetchedUser instanceof MongoError)
             throw UserController.resolveErrorResponse(fetchedUser, fetchedUser.message);
 
         if (!fetchedUser || fetchedUser === null) throw UserController.resolveErrorResponse(null, 'Does not exist');
@@ -70,15 +67,15 @@ export class UserController extends Controller {
 
         if (!isMatched) throw UserController.resolveErrorResponse(null, 'Password does not match');
 
-        const payload = { user: fetchedUser };
-        const token: string = sign(payload, config.get('auth.jwt_secret'), { expiresIn: 1800 });
+        const payload = {user: fetchedUser};
+        const token: string = sign(payload, config.get('auth.jwt_secret'), {expiresIn: 1800});
 
         if (!token) throw UserController.resolveErrorResponse(null, 'Error signing payload');
 
         fetchedUser.lastVisited = moment().toDate();
         try {
             const result = await fetchedUser.save();
-            const response: ILoginResponse = {
+            return {
                 authToken: `JWT ${token}`,
                 _id: result._id,
                 username: result.username,
@@ -89,10 +86,9 @@ export class UserController extends Controller {
                 role: result.role,
                 profile: result.profile
             };
-            return response;
         } catch (error) {
             throw UserController.resolveErrorResponse(
-                error instanceof MongoError ? error : null, 
+                error instanceof MongoError ? error : null,
                 error instanceof MongoError ? error.message : 'Unexpected Error');
         }
     }

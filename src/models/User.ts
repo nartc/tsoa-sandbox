@@ -1,5 +1,4 @@
-import { Document, Model, model, Schema } from 'mongoose';
-import { ITaskVm } from './Task';
+import {Document, Model, model, Schema} from 'mongoose';
 
 export const UserSchema = new Schema({
     username: {

@@ -43,7 +43,7 @@ function onListening(): void {
     const addr = server.address();
     const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
     logger.info(
-      `------------
+        `------------
        Server Started
        Express: ${bind}
       `
