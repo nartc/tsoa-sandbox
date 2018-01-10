@@ -1,5 +1,7 @@
 import { Document, Model, model, Schema } from 'mongoose';
-import {IUserVm} from './User';
+import { IUserVm, User } from './User';
+import { MongoError } from 'mongodb';
+import {IUserRepository} from '../repositories/IUserRepository';
 
 export const TaskSchema = new Schema({
     title: {
@@ -32,25 +34,30 @@ export const TaskSchema = new Schema({
     }
 });
 
+TaskSchema.post('remove', async (error: MongoError, task: ITask) => {
+    const user =  await User.findById(task.user);
+    user.tasks.splice(user.tasks.indexOf(task._id, 1));
+    user.save();
+});
+
 export interface ITask extends Document {
-    title?: string,
-    slug?: string,
-    content?: string,
-    createdOn?: Date,
-    updatedOn?: Date,
-    isCompleted?: boolean,
-    user?: string
+    title?: string;
+    slug?: string;
+    content?: string;
+    createdOn?: Date;
+    updatedOn?: Date;
+    isCompleted?: boolean;
+    user?: string;
 }
 
 export interface ITaskVm {
     _id?: string;
-    title?: string,
-    slug?: string,
-    content?: string,
-    createdOn?: Date,
-    updatedOn?: Date,
-    isCompleted?: boolean,
-    user?: IUserVm
+    title?: string;
+    slug?: string;
+    content?: string;
+    createdOn?: Date;
+    updatedOn?: Date;
+    isCompleted?: boolean;
 }
 
 export type TaskModel = Model<ITask>;

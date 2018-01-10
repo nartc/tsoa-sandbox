@@ -66,7 +66,6 @@ export interface IUserVm {
     role?: string;
     lastVisited?: Date;
     profile?: IUserProfile;
-    tasks?: ITaskVm[];
 }
 
 export interface IUserProfile {
