@@ -93,7 +93,7 @@ class App {
 
   private onMongoConnection() {
     winston.info(
-      `------------
+      `-------------
        Connected to Database
       `
     );
@@ -101,7 +101,7 @@ class App {
 
   private onMongoError(error: MongoError) {
     winston.error(
-      `------------
+      `-------------
        Error on connection to database: ${error}
       `
     );
