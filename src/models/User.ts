@@ -1,4 +1,5 @@
 import { Document, Model, model, Schema } from 'mongoose';
+import { ITaskVm } from './Task';
 
 export const UserSchema = new Schema({
     username: {
@@ -53,6 +54,19 @@ export interface IUser extends Document {
     lastVisited?: Date;
     profile?: IUserProfile;
     tasks?: string[];
+}
+
+export interface IUserVm {
+    _id?: string;
+    username: string;
+    email: string;
+    password?: string;
+    createdOn?: Date;
+    updatedOn?: Date;
+    role?: string;
+    lastVisited?: Date;
+    profile?: IUserProfile;
+    tasks?: ITaskVm[];
 }
 
 export interface IUserProfile {

@@ -3,7 +3,7 @@ import { IUser, User } from '../models/User';
 import { hash, genSalt, compare } from 'bcryptjs';
 import { MongoError } from 'mongodb';
 import { IUserRepository } from '../repositories/IUserRepository';
-import { UserRepository } from '../repositories/UserRepository';
+import { TaskRepository } from '../repositories/UserRepository';
 import { sign } from 'jsonwebtoken';
 import { INewUserParams, ILoginParams } from '../models/requests/index';
 import { IErrorResponse, ILoginResponse, IUserResponse } from '../models/responses/index';
@@ -23,7 +23,7 @@ export class UserController extends Controller {
         return response;
     }
 
-    private readonly _userRepository: IUserRepository = new UserRepository();
+    private readonly _userRepository: IUserRepository = new TaskRepository();
     
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')

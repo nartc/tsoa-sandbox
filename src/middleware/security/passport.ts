@@ -4,11 +4,11 @@ import { PassportStatic } from 'passport';
 import { StrategyOptions, ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import { IUser } from '../../models/User';
 import { IUserRepository } from '../../repositories/IUserRepository';
-import { UserRepository } from '../../repositories/UserRepository';
+import { TaskRepository } from '../../repositories/UserRepository';
 import { MongoError } from 'mongodb';
 
 export const authenticateUser = (passport: PassportStatic) => {
-  const _userRepository: IUserRepository = new UserRepository();
+  const _userRepository: IUserRepository = new TaskRepository();
 
   const options: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),

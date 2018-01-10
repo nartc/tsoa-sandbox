@@ -14,6 +14,7 @@ import { Mongoose } from 'mongoose';
 import { Application, Request, Response } from 'express';
 
 import './controllers/UserController';
+import './controllers/TaskController';
 
 // Import Routes
 import { RegisterRoutes } from './routes';

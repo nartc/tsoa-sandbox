@@ -9,6 +9,10 @@
             {
                 "name": "Auth",
                 "description": "Access to User's related RestAPI"
+            },
+            {
+                "name": "Task",
+                "description": "Access to Task's related RestAPI"
             }
         ],
         "schemes": ["http", "https"],
