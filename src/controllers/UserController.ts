@@ -13,13 +13,14 @@ import * as moment from 'moment';
 @Route('users')
 export class UserController extends Controller {
 
-    private static resolveErrorResponse(error: MongoError | null, message: string): Promise<IErrorResponse> {
+    private static resolveErrorResponse(error: MongoError | null, message: string): IErrorResponse {
         const response: IErrorResponse = {
+            thrown: true,
             error,
             message
         };
 
-        return Promise.resolve(response);
+        return response;
     }
 
     private readonly _userRepository: IUserRepository = new UserRepository();
@@ -28,16 +29,16 @@ export class UserController extends Controller {
     @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')
     @Post('/register')
-    public async registerUser(@Body() requestBody: INewUserParams): Promise<IUserResponse | IErrorResponse> {
+    public async registerUser(@Body() requestBody: INewUserParams): Promise<IUserResponse> {
         const username: string = requestBody.username;
         const password: string = requestBody.password;
         const email: string = requestBody.email;
 
         const existUser: IUser = await this._userRepository.getUserByEmailOrUsername(email, username);
 
-        if (existUser instanceof MongoError) return UserController.resolveErrorResponse(existUser, existUser.message);
+        if (existUser instanceof MongoError) throw UserController.resolveErrorResponse(existUser, existUser.message);
 
-        if (existUser) return UserController.resolveErrorResponse(null, 'Email or Username already existed.');
+        if (existUser) throw UserController.resolveErrorResponse(null, 'Email or Username already existed.');
 
         const newUser: IUser = new User();
         newUser.username = username;
@@ -60,19 +61,19 @@ export class UserController extends Controller {
         const password: string = loginParams.password;
 
         const fetchedUser: IUser = await this._userRepository.getUserByEmailOrUsername(email, username);
-        // if (fetchedUser instanceof MongoError) 
-        //     return UserController.resolveErrorResponse(fetchedUser, fetchedUser.message);
+        if (fetchedUser instanceof MongoError) 
+            throw UserController.resolveErrorResponse(fetchedUser, fetchedUser.message);
 
-        // if (!fetchedUser || fetchedUser === null) return UserController.resolveErrorResponse(null, 'Does not exist');
+        if (!fetchedUser || fetchedUser === null) throw UserController.resolveErrorResponse(null, 'Does not exist');
 
         const isMatched: boolean = await compare(password, fetchedUser.password);
 
-        // if (!isMatched) return UserController.resolveErrorResponse(null, 'Password does not match');
+        if (!isMatched) throw UserController.resolveErrorResponse(null, 'Password does not match');
 
         const payload = { user: fetchedUser };
         const token: string = sign(payload, config.get('auth.jwt_secret'), { expiresIn: 1800 });
 
-        // if (!token) return UserController.resolveErrorResponse(null, 'Error signing payload');
+        if (!token) throw UserController.resolveErrorResponse(null, 'Error signing payload');
 
         fetchedUser.lastVisited = moment().toDate();
         try {
@@ -90,9 +91,9 @@ export class UserController extends Controller {
             };
             return response;
         } catch (error) {
-            // return UserController.resolveErrorResponse(
-            //     error instanceof MongoError ? error : null, 
-            //     error instanceof MongoError ? error.message : 'Unexpected Error');
+            throw UserController.resolveErrorResponse(
+                error instanceof MongoError ? error : null, 
+                error instanceof MongoError ? error.message : 'Unexpected Error');
         }
     }
 }

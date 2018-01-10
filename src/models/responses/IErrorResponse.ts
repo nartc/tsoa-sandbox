@@ -1,6 +1,7 @@
 import { MongoError } from 'mongodb';
 
 export interface IErrorResponse {
+  thrown?: boolean,
   error?: IMongoError;
   message?: string;
 }

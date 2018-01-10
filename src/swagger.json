@@ -4,35 +4,6 @@
 		"application/json"
 	],
 	"definitions": {
-		"IMongoError": {
-			"properties": {
-				"code": {
-					"type": "number",
-					"format": "double"
-				},
-				"message": {
-					"type": "string"
-				},
-				"name": {
-					"type": "string"
-				},
-				"stack": {
-					"type": "string"
-				}
-			},
-			"type": "object"
-		},
-		"IErrorResponse": {
-			"properties": {
-				"error": {
-					"$ref": "#/definitions/IMongoError"
-				},
-				"message": {
-					"type": "string"
-				}
-			},
-			"type": "object"
-		},
 		"IUserProfile": {
 			"properties": {
 				"firstName": {
@@ -84,6 +55,38 @@
 					"items": {
 						"type": "string"
 					}
+				}
+			},
+			"type": "object"
+		},
+		"IMongoError": {
+			"properties": {
+				"code": {
+					"type": "number",
+					"format": "double"
+				},
+				"message": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"stack": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IErrorResponse": {
+			"properties": {
+				"thrown": {
+					"type": "boolean"
+				},
+				"error": {
+					"$ref": "#/definitions/IMongoError"
+				},
+				"message": {
+					"type": "string"
 				}
 			},
 			"type": "object"
@@ -161,9 +164,9 @@
 		}
 	},
 	"info": {
-		"title": "tsoa-sandbox",
+		"title": "TSOA-Node-Express",
 		"version": "1.0.0",
-		"description": "TSOA sandbox",
+		"description": "TSOA-NodeExpress Documentation",
 		"license": {
 			"name": "MIT"
 		}
@@ -179,7 +182,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"type": "object"
+							"$ref": "#/definitions/IUserResponse"
 						}
 					},
 					"default": {

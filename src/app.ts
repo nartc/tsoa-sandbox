@@ -6,6 +6,7 @@ import * as logger from 'morgan';
 import * as passport from 'passport';
 import * as path from 'path';
 import * as config from 'config';
+import * as swaggerUI from 'swagger-ui-express';
 
 import { logger as winston, setupLogging } from './middleware/common/logger';
 import { MongoError } from 'mongodb';
@@ -17,9 +18,12 @@ import './controllers/UserController';
 // Import Routes
 import { RegisterRoutes } from './routes';
 import { authenticateUser } from './middleware/security/passport';
+import { APIDocsRouter } from './middleware/swagger/Swagger';
 
 class App {
   public app: Application;
+  private apiDocsRoutes: APIDocsRouter = new APIDocsRouter();
+  private swaggerOptions: any;
   private environmentHost: string = process.env.NODE_ENV || 'Development';
 
   constructor() {
@@ -70,6 +74,21 @@ class App {
     this.app.get('/', (req: Request, res: Response) => {
       res.send('Index worked');
     });
+
+    if (this.environmentHost === 'Development') {
+      this.swaggerOptions = {
+        explorer: true,
+        swaggerUrl: 'http://localhost:8080/api/docs/swagger.json'
+      }
+    }
+
+    // Catch ALL
+    this.app.all('/*', (req: Request, res: Response) => {
+      res.sendFile(__dirname, '../public/index.html');
+    });
+
+    this.app.use('/', this.apiDocsRoutes.getRouter());
+    this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(null, this.swaggerOptions));
   }
 
   private onMongoConnection() {

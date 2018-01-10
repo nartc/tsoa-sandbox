@@ -5,20 +5,6 @@ import * as passport from 'passport';
 import { expressAuthentication } from './middleware/security/passport';
 
 const models: TsoaRoute.Models = {
-    "IMongoError": {
-        "properties": {
-            "code": { "dataType": "double" },
-            "message": { "dataType": "string" },
-            "name": { "dataType": "string" },
-            "stack": { "dataType": "string" },
-        },
-    },
-    "IErrorResponse": {
-        "properties": {
-            "error": { "ref": "IMongoError" },
-            "message": { "dataType": "string" },
-        },
-    },
     "IUserProfile": {
         "properties": {
             "firstName": { "dataType": "string" },
@@ -38,6 +24,21 @@ const models: TsoaRoute.Models = {
             "role": { "dataType": "string" },
             "profile": { "ref": "IUserProfile" },
             "tasks": { "dataType": "array", "array": { "dataType": "string" } },
+        },
+    },
+    "IMongoError": {
+        "properties": {
+            "code": { "dataType": "double" },
+            "message": { "dataType": "string" },
+            "name": { "dataType": "string" },
+            "stack": { "dataType": "string" },
+        },
+    },
+    "IErrorResponse": {
+        "properties": {
+            "thrown": { "dataType": "boolean" },
+            "error": { "ref": "IMongoError" },
+            "message": { "dataType": "string" },
         },
     },
     "INewUserParams": {

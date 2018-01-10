@@ -1,11 +1,17 @@
 {
-  "name": "tsoa-sandbox",
+  "name": "TSOA-Node-Express",
   "version": "1.0.0",
-  "description": "TSOA sandbox",
+  "description": "TSOA-NodeExpress Documentation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-basic": "tsc && nodemon ./build/index.js"
+    "start-basic": "tsc && nodemon ./build/index.js",
+    "routes-gen": "tsoa routes -c custom-tsoa.json",
+    "swagger-gen": "tsoa swagger -c custom-tsoa.json",
+    "clean": "rimraf ./build && rimraf ./src/routes.ts && rimraf ./src/swagger.json",
+    "tsoa-gen": "npm run routes-gen && npm run swagger-gen",
+    "swagger-copy": "cp ./src/swagger.json ./build/swagger.json",
+    "start-gen": "npm run clean && npm run tsoa-gen && tsc && npm run swagger-copy && nodemon ./build/index.js"
   },
   "keywords": [
     "TSOA",
@@ -30,6 +36,7 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
+    "swagger-ui-express": "^2.0.13",
     "tsoa": "^2.0.1",
     "winston": "^2.4.0"
   },
