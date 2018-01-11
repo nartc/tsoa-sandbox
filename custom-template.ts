@@ -95,7 +95,7 @@ export function RegisterRoutes(app: any) {
                     response.status(statusCode || 204).end();
                 }
             })
-            .catch((error: any) => next(error));
+            .catch((error: any) => response.status(500).json(error));
     }
 
     function getValidatedArgs(args: any, request: any): any[] {

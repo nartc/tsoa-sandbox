@@ -25,7 +25,8 @@
     "no-implicit-dependencies": false,
     "no-console": false,
     "no-duplicate-imports": false,
-    "variable-name": false
+    "variable-name": false,
+    "no-return-await": false
   },
   "rulesDirectory": []
 
