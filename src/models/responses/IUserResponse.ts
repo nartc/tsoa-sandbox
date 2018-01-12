@@ -1,5 +1,5 @@
 import {ITaskVm} from '../Task';
-import {IUserProfile} from '../User';
+import {IUserProfile, UserRole} from '../User';
 
 export interface IUserResponse {
     _id?: string;
@@ -9,7 +9,7 @@ export interface IUserResponse {
     createdOn?: Date;
     updatedOn?: Date;
     lastVisited?: Date;
-    role?: string;
+    role?: UserRole;
     profile?: IUserProfile;
     tasks?: ITaskVm[];
 }

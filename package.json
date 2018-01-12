@@ -30,6 +30,7 @@
   "author": "Chau Tran",
   "license": "MIT",
   "dependencies": {
+    "@angular-redux/store": "^7.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "config": "^1.29.0",

@@ -49,10 +49,15 @@ export interface IUser extends Document {
     password?: string;
     createdOn?: Date;
     updatedOn?: Date;
-    role?: string;
+    role?: UserRole;
     lastVisited?: Date;
     profile?: IUserProfile;
     tasks?: string[];
+}
+
+export enum UserRole {
+    Admin = 0,
+    User = 1
 }
 
 export interface IUserVm {
@@ -62,7 +67,7 @@ export interface IUserVm {
     password?: string;
     createdOn?: Date;
     updatedOn?: Date;
-    role?: string;
+    role?: UserRole;
     lastVisited?: Date;
     profile?: IUserProfile;
 }

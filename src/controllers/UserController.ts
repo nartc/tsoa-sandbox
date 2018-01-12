@@ -3,12 +3,13 @@ import * as config from 'config';
 import {sign} from 'jsonwebtoken';
 import * as moment from 'moment';
 import {MongoError} from 'mongodb';
-import {Body, Controller, Post, Response, Route, Tags} from 'tsoa';
+import {Body, Controller, Get, Post, Request, Response, Route, Security, Tags} from 'tsoa';
 import {ILoginParams, INewUserParams} from '../models/requests';
 import {IErrorResponse, ILoginResponse, IUserResponse} from '../models/responses';
 import {IUser, User} from '../models/User';
 import {IUserRepository} from '../repositories/IUserRepository';
 import {TaskRepository} from '../repositories/UserRepository';
+import {Request as eRequest} from 'express';
 
 @Route('users')
 export class UserController extends Controller {
@@ -26,7 +27,7 @@ export class UserController extends Controller {
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')
-    @Post('/register')
+    @Post('register')
     public async registerUser(@Body() requestBody: INewUserParams): Promise<IUserResponse> {
         const username: string = requestBody.username;
         const password: string = requestBody.password;
@@ -51,7 +52,7 @@ export class UserController extends Controller {
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ILoginResponse>('200', 'Success')
     @Tags('Auth')
-    @Post('/login')
+    @Post('login')
     public async login(@Body() loginParams: ILoginParams): Promise<ILoginResponse> {
         const username: string = loginParams.username;
         const email: string = loginParams.email;
@@ -91,5 +92,22 @@ export class UserController extends Controller {
                 error instanceof MongoError ? error : null,
                 error instanceof MongoError ? error.message : 'Unexpected Error');
         }
+    }
+
+    @Response<IErrorResponse>('default', 'Error Occurred')
+    @Response<IUserResponse>('200', 'Success')
+    @Tags('Auth')
+    @Security('JWT')
+    @Get('profile')
+    public async getCurrentUser(@Request() request: eRequest): Promise<IUserResponse> {
+        const currentUser: IUser = request.user;
+
+        if (currentUser instanceof MongoError)
+            throw UserController.resolveErrorResponse(currentUser, 'Error getting current User');
+
+        if (!currentUser || currentUser === null)
+            throw UserController.resolveErrorResponse(null, 'No current User');
+
+        return <IUserResponse>currentUser;
     }
 }

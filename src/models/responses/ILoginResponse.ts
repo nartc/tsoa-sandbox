@@ -1,4 +1,4 @@
-import {IUserProfile} from '../User';
+import {IUserProfile, UserRole} from '../User';
 
 export interface ILoginResponse {
     authToken: string;
@@ -8,6 +8,6 @@ export interface ILoginResponse {
     createdOn?: Date;
     updatedOn?: Date;
     lastVisited?: Date;
-    role?: string;
+    role?: UserRole;
     profile?: IUserProfile;
 }
