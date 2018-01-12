@@ -12,8 +12,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import {AuthClientService} from './services/auth-client.service';
-import {ILoginParams, ILoginResponse, IUserResponse} from './swagger-api';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
