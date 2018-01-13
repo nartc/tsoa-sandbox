@@ -1,0 +1,15 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/ p-checkbox {
+  .ui-chkbox-box.ui-state-active {
+    background: $button-primary;
+    color: $text-color-bright;
+    border: $button-primary;
+  }
+
+  label.ui-chkbox-label {
+    color: $text-color-dark;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,17 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/button[pButton] {
+  &.ui-button-success {
+    background: $button-primary;
+    color: $text-color-bright;
+  }
+  &.ui-button-danger {
+    background: $button-danger;
+    color: $text-color-bright;
+  }
+  &.ui-button-secondary {
+    background: $button-secondary;
+    color: $text-color-bright;
+  }
+}

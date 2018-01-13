@@ -11,7 +11,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import {AuthClientService} from './services/auth-client.service';
+import {Message} from 'primeng/components/common/message';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +20,13 @@ import {AuthClientService} from './services/auth-client.service';
 })
 export class AppComponent implements OnInit {
   title = 'Really Real Service Workers Updated';
-
+  growlMessages: Message[] = [];
   constructor(private logUpdateService: LogSwUpdateService,
               private ngRedux: NgRedux<IAppState>,
               private devTools: DevToolsExtension,
               private _title: Title,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private authService: AuthClientService) {
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {

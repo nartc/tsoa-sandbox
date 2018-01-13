@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  atHome = true;
 
-  constructor() { }
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
+    const firstChild: ActivatedRouteSnapshot = this.activatedRoute.snapshot.firstChild;
+    if (firstChild.routeConfig.path !== '') {
+      this.atHome = false;
+    }
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe((event: NavigationEnd) => {
+        window.scrollTo(0, 0);
+        const endpoint = event.url.split('?')[0];
+        this.atHome = endpoint === '/';
+      });
   }
 
 }

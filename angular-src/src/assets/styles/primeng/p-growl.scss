@@ -1,0 +1,27 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/ p-growl {
+  .ui-growl {
+    top: 70px;
+    right: 0;
+    .ui-growl-item-container {
+      border-radius: 0;
+
+      &.ui-growl-message-success {
+        background: $message-success;
+        color: $text-color-bright;
+      }
+
+      &.ui-growl-message-danger {
+        background: $message-danger;
+        color: $text-color-bright;
+      }
+
+      &.ui-growl-message-info {
+        background: $message-warning;
+        color: $text-color-bright;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@import '../../../variables';
+
+.navbar {
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  a {
+    color: $text-color-grey;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      color: $navbar-active-color;
+    }
+
+    &.active {
+      color: $navbar-active-color;
+    }
+  }
+
+  &.scroll-active {
+    background-color: $navbar-main-color;
+    opacity: 0.8;
+    border-bottom: $navbar-active-color 2px solid;
+    margin-bottom: 3rem;
+  }
+}

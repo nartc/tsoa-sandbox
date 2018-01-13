@@ -11,7 +11,7 @@ import {AppComponent} from './app.component';
 import {environment} from '../environments/environment';
 
 import {LogSwUpdateService} from './services/log-sw-update.service';
-import {Configuration, ApiModule} from './swagger-api';
+import {ApiModule, Configuration} from './swagger-api';
 import {DefaultLayoutComponent} from './components/layouts/default-layout/default-layout.component';
 import {UserLayoutComponent} from './components/layouts/user-layout/user-layout.component';
 import {AdminLayoutComponent} from './components/layouts/admin-layout/admin-layout.component';
@@ -23,6 +23,13 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {AuthClientService} from './services/auth-client.service';
 import {LocalStorageService} from './services/local-storage.service';
 import {NgReduxModule} from '@angular-redux/store';
+import {FooterComponent} from './components/footer/footer.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {NavbarScrollDirective} from './directives/navbar-scroll.directive';
+import {PrimeNgImportsModule} from './primeng-import.module';
+import {AlertService} from './services/alert.service';
+import {MessageService} from 'primeng/components/common/messageservice';
 
 @NgModule({
   declarations: [
@@ -34,7 +41,11 @@ import {NgReduxModule} from '@angular-redux/store';
     RegisterComponent,
     NavbarComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FooterComponent,
+    SidebarComponent,
+    DashboardComponent,
+    NavbarScrollDirective
   ],
   imports: [
     BrowserModule,
@@ -44,9 +55,17 @@ import {NgReduxModule} from '@angular-redux/store';
     NgReduxModule,
     AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
-    ApiModule.forRoot(() => new Configuration({basePath: 'http://localhost:8080/api'}))
+    ApiModule.forRoot(() => new Configuration({basePath: 'http://localhost:8080/api'})),
+    PrimeNgImportsModule
   ],
-  providers: [LogSwUpdateService, AuthClientService, LocalStorageService],
+  providers: [
+    MessageService,
+    LogSwUpdateService,
+    AuthClientService,
+    LocalStorageService,
+    AlertService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

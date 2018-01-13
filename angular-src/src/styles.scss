@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./variables";
+* {
+  font-family: gotham_htfbook;
+}
+
+body {
+  background: $main-bg-color !important;
+  color: $text-color-bright !important;
+}
+@font-face {
+  font-family: gotham_htfbold;
+  src: url(./assets/font/Gotham-Bold.otf);
+  src: url(./assets/font/GothamHTF-Bold.otf) format('opentype');
+  src: url(./assets/font/Gotham-Bold.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal
+}
+
+@font-face {
+  font-family: gotham_medium;
+  src: url(./assets/font/Gotham-Medium-Regular.ttf);
+  src: url(./assets/font/Gotham-Medium-Regular.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal
+}
+
+@font-face {
+  font-family: gotham_htfbook;
+  src: url(./assets/font/GothamHTF-Book.ttf); // src: url(../fonts/gothamhtf-book.eot?#iefix) format('embedded-opentype'), url(../fonts/gothamhtf-book.woff2) format('woff2'), url(../fonts/gothamhtf-book.woff) format('woff'), url(../fonts/gothamhtf-book.ttf) format('truetype'), url(../fonts/gothamhtf-book.svg#gotham_htfbook) format('svg');
+  font-weight: 400;
+  font-style: normal
+}

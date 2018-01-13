@@ -1,0 +1,34 @@
+.register-wrapper {
+  margin-top: 5rem;
+}
+
+:host {
+  @import '../../../assets/styles/primeng/input-text';
+  @import '../../../assets/styles/primeng/p-button';
+  .ui-inputtext {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .ui-inputgroup .ui-inputgroup-addon {
+    border-style: none;
+    border-bottom-left-radius: 0 !important;
+    background: rgb(255, 255, 255);
+  }
+
+  p-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.register-form {
+  top: 100px;
+}

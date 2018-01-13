@@ -1,0 +1,8 @@
+@import './p-variables';
+
+/deep/input[pinputtext] {
+  &.ui-inputtext {
+    height: 100%;
+    width: 100%;
+  }
+}

@@ -1,3 +1,49 @@
-<p>
-  login works!
-</p>
+<div class="container login-wrapper">
+  <div class="row">
+    <div class="col-lg-6 col-sm-8 mx-auto login-form">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <p-panel header="Signin">
+          <div class="row my-4">
+            <div class="col-10 mx-auto">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user-circle-o"></i></span>
+                <span class="ui-float-label" style="width: 100%">
+                  <input id="float-input" type="text" pInputText [formControl]="usernameOrEmail">
+                  <label for="float-input">Username/Email</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-10 mx-auto">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+                <span class="ui-float-label" style="width: 100%">
+                  <input id="float-input-3" type="password" pInputText [formControl]="password">
+                  <label for="float-input-3">
+                    <span *ngIf="form.controls['password'].untouched || form.controls['password'].valid">Password</span>
+                    <span class="text-danger"
+                          *ngIf="form.controls['password'].touched && !form.controls['password'].valid">
+                      <span *ngIf="form.controls['password'].errors['minlength']">Must be at least 6 characters</span>
+                    </span>
+                  </label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col-10 mx-auto">
+              <p-checkbox [formControl]="rememberMe" label="Remember me?" binary="true"></p-checkbox>
+            </div>
+          </div>
+          <p-footer>
+            <button pButton type="submit" icon="fa-check" label="Sign In" class="ui-button-success"
+                    [disabled]="!form.valid"></button>
+            <small class="text-muted">Don't have an account? <a [routerLink]="['/register']">Sign up now</a>
+            </small>
+          </p-footer>
+        </p-panel>
+      </form>
+    </div>
+  </div>
+</div>

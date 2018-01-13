@@ -1,0 +1,9 @@
+@import '../../../variables';
+
+.footer {
+  height: 60px;
+  color: $text-color-bright;
+  background: $navbar-main-color;
+  opacity: 0.8;
+  border-top: 2px solid $navbar-active-color;
+}

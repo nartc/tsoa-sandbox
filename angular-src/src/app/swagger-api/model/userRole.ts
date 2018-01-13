@@ -11,9 +11,9 @@
  */
 
 
-export type UserRole = '0' | '1';
+export type UserRole = 'Admin' | 'User';
 
 export const UserRole = {
-    _0: '0' as UserRole,
-    _1: '1' as UserRole
+    Admin: 'Admin' as UserRole,
+    User: 'User' as UserRole
 }
