@@ -1,0 +1,622 @@
+{
+	"basePath": "/api",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"UserRole": {
+			"enum": [
+				"Admin",
+				"User"
+			],
+			"type": "string"
+		},
+		"IUserProfile": {
+			"properties": {
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"ITaskVm": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"isCompleted": {
+					"type": "boolean"
+				}
+			},
+			"type": "object"
+		},
+		"IUserResponse": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"lastVisited": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"role": {
+					"$ref": "#/definitions/UserRole"
+				},
+				"profile": {
+					"$ref": "#/definitions/IUserProfile"
+				},
+				"tasks": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ITaskVm"
+					}
+				}
+			},
+			"type": "object"
+		},
+		"IMongoError": {
+			"properties": {
+				"code": {
+					"type": "number",
+					"format": "double"
+				},
+				"message": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"stack": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IErrorResponse": {
+			"properties": {
+				"thrown": {
+					"type": "boolean"
+				},
+				"error": {
+					"$ref": "#/definitions/IMongoError"
+				},
+				"message": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"INewUserParams": {
+			"properties": {
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"username",
+				"email",
+				"password"
+			],
+			"type": "object"
+		},
+		"ILoginResponse": {
+			"properties": {
+				"authToken": {
+					"type": "string"
+				},
+				"_id": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"lastVisited": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"role": {
+					"$ref": "#/definitions/UserRole"
+				},
+				"profile": {
+					"$ref": "#/definitions/IUserProfile"
+				}
+			},
+			"required": [
+				"authToken"
+			],
+			"type": "object"
+		},
+		"ILoginParams": {
+			"properties": {
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"type": "object"
+		},
+		"IUserVm": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"role": {
+					"$ref": "#/definitions/UserRole"
+				},
+				"lastVisited": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"profile": {
+					"$ref": "#/definitions/IUserProfile"
+				}
+			},
+			"required": [
+				"username",
+				"email"
+			],
+			"type": "object"
+		},
+		"ITaskResponse": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"createdOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedOn": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"isCompleted": {
+					"type": "boolean"
+				},
+				"user": {
+					"$ref": "#/definitions/IUserVm"
+				}
+			},
+			"type": "object"
+		},
+		"INewTaskParams": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"title",
+				"content"
+			],
+			"type": "object"
+		},
+		"IUpdateTaskParams": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"completed": {
+					"type": "boolean"
+				}
+			},
+			"required": [
+				"title",
+				"content",
+				"completed"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "TSOA-Node-Express",
+		"version": "1.0.0",
+		"description": "TSOA-NodeExpress Documentation",
+		"license": {
+			"name": "MIT"
+		}
+	},
+	"paths": {
+		"/users/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/IUserResponse"
+						}
+					},
+					"default": {
+						"description": "Error occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/INewUserParams"
+						}
+					}
+				]
+			}
+		},
+		"/users/login": {
+			"post": {
+				"operationId": "Login",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ILoginResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "loginParams",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ILoginParams"
+						}
+					}
+				]
+			}
+		},
+		"/users/profile": {
+			"get": {
+				"operationId": "GetCurrentUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/IUserResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/tasks": {
+			"get": {
+				"operationId": "GetTasks",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/ITaskResponse"
+							}
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/tasks/create": {
+			"post": {
+				"operationId": "CreateTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ITaskResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/INewTaskParams"
+						}
+					}
+				]
+			}
+		},
+		"/tasks/{slug}": {
+			"get": {
+				"operationId": "GetSingleTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ITaskResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "slug",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ITaskResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "slug",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "updatedTask",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IUpdateTaskParams"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "RemoveTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/ITaskResponse"
+						}
+					},
+					"default": {
+						"description": "Error Occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"tags": [
+					"Task"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "slug",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {
+		"JWT": {
+			"type": "apiKey",
+			"name": "Authorization",
+			"in": "header"
+		}
+	},
+	"host": "localhost:8080"
+}
