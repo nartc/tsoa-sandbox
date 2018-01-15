@@ -21,19 +21,19 @@ import {Message} from 'primeng/components/common/message';
 export class AppComponent implements OnInit {
   title = 'Really Real Service Workers Updated';
   growlMessages: Message[] = [];
+  updateAvailable = false;
   constructor(private logUpdateService: LogSwUpdateService,
               private ngRedux: NgRedux<IAppState>,
               private devTools: DevToolsExtension,
               private _title: Title,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private location: Location) {
   }
 
   ngOnInit() {
     this.logUpdateService.registerUpdatesListener().subscribe((event: UpdateAvailableEvent) => {
-      console.log(event.type);
-      console.log(event.current);
-      console.log(event.available);
+      this.updateAvailable = true;
     });
 
     const initialState = {} as IAppState;
@@ -60,5 +60,10 @@ export class AppComponent implements OnInit {
       .subscribe((event) => {
         this._title.setTitle(event['title']);
       });
+  }
+
+  onRefreshClick() {
+    this.updateAvailable = false;
+    this.location.reload(true);
   }
 }
