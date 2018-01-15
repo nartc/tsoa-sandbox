@@ -28,4 +28,11 @@
     border-bottom: $navbar-active-color 2px solid;
     margin-bottom: 3rem;
   }
+
+  .navbar-toggler {
+    outline: none;
+    .fa {
+      color: $text-color-bright;
+    }
+  }
 }

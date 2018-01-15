@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   title = 'Really Real Service Workers Updated';
   growlMessages: Message[] = [];
   updateAvailable = false;
+  updateBtnIcon = 'fa-refresh';
   constructor(private logUpdateService: LogSwUpdateService,
               private ngRedux: NgRedux<IAppState>,
               private devTools: DevToolsExtension,
@@ -64,5 +65,13 @@ export class AppComponent implements OnInit {
   onRefreshClick() {
     this.updateAvailable = false;
     window.location.reload(true);
+  }
+
+  onBtnHover() {
+    this.updateBtnIcon = 'fa-spin fa-refresh';
+  }
+
+  onBtnOffHover() {
+    this.updateBtnIcon = 'fa-refresh';
   }
 }

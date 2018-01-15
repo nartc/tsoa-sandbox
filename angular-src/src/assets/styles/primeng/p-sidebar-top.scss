@@ -1,0 +1,16 @@
+@import './p-variables';
+@import '../../../variables';
+@import './p-button';
+
+/deep/p-sidebar {
+  .ui-sidebar {
+    z-index: 9999 !important;
+    background: $navbar-main-color;
+    color: $text-color-bright;
+    border: none;
+    border-bottom: 2px solid $navbar-active-color;
+    font-family: gotham_htfbook, sans-serif;
+    height: 90px;
+    text-align: center;
+  }
+}
