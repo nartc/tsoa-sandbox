@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
               private devTools: DevToolsExtension,
               private _title: Title,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private location: Location) {
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -64,6 +63,6 @@ export class AppComponent implements OnInit {
 
   onRefreshClick() {
     this.updateAvailable = false;
-    this.location.reload(true);
+    window.location.reload(true);
   }
 }
