@@ -3,13 +3,20 @@
 .navbar {
   background-color: transparent;
   transition: all 0.3s ease-in-out;
+  li {
+    &:focus {
+      outline: none;
+    }
+  }
   a {
     color: $text-color-grey;
     transition: all 0.3s ease-in-out;
     &:hover {
       color: $navbar-active-color;
     }
-
+    &:focus {
+      outline: none;
+    }
     &.active {
       color: $navbar-active-color;
     }

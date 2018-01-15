@@ -20,7 +20,9 @@
     "updateMode": "prefetch",
     "resources": {
       "files": [
-        "/assets/**",
+        "/assets/*.docx",
+        "/assets/styles/**",
+        "/assets/img/**",
         "/assets/font/**"
       ],
       "urls": [
