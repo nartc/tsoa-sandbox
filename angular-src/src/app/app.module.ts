@@ -58,7 +58,7 @@ import {ResumeGuardGuard} from './guards/resume-guard.guard';
     NgReduxModule,
     AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
-    ApiModule.forRoot(() => new Configuration({basePath: 'http://localhost:8080/api'})),
+    ApiModule.forRoot(configurationApi),
     PrimeNgImportsModule
   ],
   providers: [
@@ -72,4 +72,16 @@ import {ResumeGuardGuard} from './guards/resume-guard.guard';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+export function configurationApi(): Configuration {
+  if (environment.production) {
+    return new Configuration({
+      basePath: 'https://tsoanartc.herokuapp.com/api'
+    });
+  } else {
+    return new Configuration({
+      basePath: 'http://localhost:8080/api'
+    });
+  }
 }
