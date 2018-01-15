@@ -7,6 +7,11 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/resume']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">RESUME</a>
+      </li>
+    </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active"

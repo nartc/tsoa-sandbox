@@ -30,6 +30,8 @@ import {NavbarScrollDirective} from './directives/navbar-scroll.directive';
 import {PrimeNgImportsModule} from './primeng-import.module';
 import {AlertService} from './services/alert.service';
 import {MessageService} from 'primeng/components/common/messageservice';
+import {ResumeComponent} from './components/resume/resume.component';
+import {ResumeGuardGuard} from './guards/resume-guard.guard';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import {MessageService} from 'primeng/components/common/messageservice';
     FooterComponent,
     SidebarComponent,
     DashboardComponent,
+    ResumeComponent,
     NavbarScrollDirective
   ],
   imports: [
@@ -63,7 +66,8 @@ import {MessageService} from 'primeng/components/common/messageservice';
     LogSwUpdateService,
     AuthClientService,
     LocalStorageService,
-    AlertService
+    AlertService,
+    ResumeGuardGuard
   ],
   bootstrap: [AppComponent]
 })

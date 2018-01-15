@@ -55,12 +55,6 @@ export interface IUser extends Document {
     tasks?: string[];
 }
 
-// export type UserRole = 'Admin' | 'User';
-// export const UserRole = {
-//     Admin: 'Admin' as UserRole,
-//     User: 'User' as UserRole
-// };
-
 export enum UserRole {
     Admin = 'Admin' as any,
     User = 'User' as any

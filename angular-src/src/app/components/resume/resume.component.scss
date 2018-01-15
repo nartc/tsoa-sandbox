@@ -1,0 +1,45 @@
+@import '../../../variables';
+
+:host {
+  @import '../../../assets/styles/primeng/p-button';
+  @import '../../../assets/styles/primeng/p-panel';
+  @import '../../../assets/styles/primeng/p-tabView';
+}
+
+.resume-wrapper {
+  color: $text-color-dark;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+span.title-border-bottom {
+  padding: 0 8px;
+  font-size: 18px;
+  line-height: 18px;
+  position: relative;
+  left: 50%;
+  display: inline-block;
+  &:before {
+    content: "";
+    background: rgb(218, 218, 218);
+    width: 45px;
+    height: 1px;
+    top: 9px;
+    position: absolute;
+    left: 100%;
+  }
+  &:after {
+    content: "";
+    background: rgb(218, 218, 218);
+    width: 45px;
+    height: 1px;
+    top: 9px;
+    position: absolute;
+    right: 100%;
+  }
+
+  i {
+    color: $navbar-active-color;
+  }
+}

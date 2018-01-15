@@ -1,0 +1,220 @@
+<div class="container-fluid resume-wrapper">
+  <div class="row p-3">
+    <div class="col-lg-9 p-3">
+      <p-tabView>
+        <p-tabPanel header="Bio" leftIcon="fa-user">
+          <p>I am a graduate with a Bachelor degree in Information Systems at University of Missouri - St Louis. I am a
+            genuine teamplayer who have worked on many team projects. I am a quick learner as I am passionate about what
+            I am doing. I am willing to learn new things as I am pursuing mastery. With interests in working in a
+            professional environment in the IT industry, I am ready to expand myself to the world out there.</p>
+          <br>
+          <p>As a self-taught Web Developer, I am comfortable with HTML5, CSS3, JavaScript, MEAN Stack (MongoDB,
+            ExpressJS, Angular, NodeJS), CSS Frameworks (Bootstrap, Materialize) and currently learning more. I am also
+            familiar with Java and C# through academic projects.</p>
+          <br>
+          <p>In addition, I bring knowledge of Project Management, Data Analysis / Statistics and Microsoft Office. I
+            value critical thinking and am passionate and strongly motivated to learn. I believe in taking
+            initiative, working with others, and making a positive difference.</p>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h5 class="text-muted">BS Information Systems</h5>
+            <p>University of Saint Louis - Missouri</p>
+            <p>2014 - 2017</p>
+            <p-progressBar [value]="(3.74/4)*100" [showValue]="false"></p-progressBar>
+          </section>
+          <section class="my-3">
+            <h5 class="text-muted">General Education Transfer</h5>
+            <p>Saint Louis Community College - Florissant Valley</p>
+            <p>2012 - 2014</p>
+            <p-progressBar [value]="100" [showValue]="false"></p-progressBar>
+          </section>
+          <section class="my-3">
+            <h5 class="text-muted">AA Computer Science (Incomplete)</h5>
+            <p>Saint Louis Community College - Florissant Valley</p>
+            <p>2010 - 2011</p>
+            <p-progressBar [value]="100" [showValue]="false"></p-progressBar>
+          </section>
+        </p-tabPanel>
+        <p-tabPanel header="Skills" leftIcon="fa-bars">
+          <p-panel header="Professional Skills">
+            <p-chart
+              type="bar"
+              [data]="skillData"
+              [options]="barChartOptions"
+            ></p-chart>
+            <small class="text-muted">Please visit my <a href="https://github.com/nartc">Github</a> page for more
+              information about my projects.
+            </small>
+          </p-panel>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <p-panel header="Personal Skills">
+            <p-chart
+              type="horizontalBar"
+              [data]="personalSkillData"
+              [options]="barChartOptions"
+            ></p-chart>
+          </p-panel>
+        </p-tabPanel>
+        <p-tabPanel header="Experiences" leftIcon="fa-graduation-cap">
+          <section class="my-3">
+            <h5 class="text-muted">Full-stack Developer</h5>
+            <p>ArchitectNow - Wildwood MO</p>
+            <p>Oct 2017 - Present</p>
+            <ul>
+              <li>Develop web applications utilizing Angular 2+, ASP.NET Core and relating third-party packages.</li>
+              <li>Communicate directly with customers weekly.</li>
+            </ul>
+          </section>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h5 class="text-muted">Senior Coordinator</h5>
+            <p>Cardinal Health At Home - Hazelwood MO</p>
+            <p>2015 - May 2017</p>
+            <ul>
+              <li>Achieved 5-Star Year End Review FY15, FY16 for bringing the Returns area up to date for the first time
+                in two years.
+              </li>
+              <li>Achieved Applause Bravo Award for exercising best practices in Pick/Pack/Ship operations and
+                teamwork.
+              </li>
+              <li>Great teamplayer for training newcommers, staying late to help with large volume workdays, and helping
+                out teammate who is in need.
+              </li>
+              <li>High efficiency in utilizing RF Scanner for various Warehouse operations including Inbound and
+                Outbound.
+              </li>
+            </ul>
+          </section>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h5 class="text-muted">Warehouse Associates II</h5>
+            <p>Cardinal Health Medical Department - Earth City MO</p>
+            <p>Nov 2013 - Nov 2015</p>
+            <ul>
+              <li>Placed top picker after three weeks since start date.</li>
+              <li>Achieved high efficiency in picking special orders for Supervisors and Leads.</li>
+            </ul>
+          </section>
+        </p-tabPanel>
+        <p-tabPanel header="Projects" leftIcon="fa-folder-o">
+          <section class="my-3">
+            <h4 class="text-muted">TSOA with Node/Express</h4>
+            <p>Personal Project</p>
+            <p>Jan 2018 - Present</p>
+            <h5 class="text-muted">Summary</h5>
+            <p>This project is my attempt to integrate TSOA (TypeScript OpenAPI) with a MEAN Stack. Angular's
+              Client-side is already written in TypeScript. TSOA allows me to work TypeScript in the Server-side with
+              NodeJS, ExpressJS and MongoDB which results in a much-cleaner-safer code than plain JavaScript. Moreover,
+              TSOA also provides some other great tools such as Routes Generation and SwaggerSpec Generation. Hence, I
+              can generate my Routes and my Swagger specification file to display my Routes in a documented-UI-way with
+              SwaggerUI. Moreover, I then can utilize Swagger-Codegen to generate the TypeScript-Angular Client APIs
+              that contains my HTTP calls to the backend according with my Controllers, and all of my Interfaces are
+              available to use with Angular from Swagger-Codegen as well.</p>
+            <ul>
+              <li>Build Server-side with NodeJS, ExpressJS and MongoDB utilizing TypeScript (TSOA)</li>
+              <li>Build Client-side with Angular 5 utilizing Redux (@angular-redux/store), Service Worker, SCSS Styling,
+                and more.
+              </li>
+            </ul>
+            <small class="text-muted">Check out my progress from my <a href="https://github.com/nartc/tsoa-sandbox">Github</a>
+              repository.
+            </small>
+          </section>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h4 class="text-muted">Outside 360</h4>
+            <p>ArchitectNow</p>
+            <p>Oct 2017 - Present</p>
+            <h5 class="text-muted">Summary</h5>
+            <p>Outside360 is a peer-to-peer marketplace that connects Hosts and Users through online listings for
+              outdoor recreational opportunities. Our listings center on making private lands and outdoor experiences
+              more accessible, with a mission to help individuals share their wisdom or piece of paradise with outdoor
+              enthusiasts of every kind.</p>
+            <ul>
+              <li>Responsible for developing Outside 360's Client side with Angular 4</li>
+              <li>Utilizing multiple packages such as Bootstrap 4 and PrimeNG for UI Components and Styling</li>
+              <li>Utilizing Redux for state management to control Real-time Notifications for the Front-end</li>
+            </ul>
+          </section>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h4 class="text-muted">Liquid Nitro Sales</h4>
+            <p>University of Missouri - Saint Louis</p>
+            <p>Jan 2017 - May 2017</p>
+            <h5 class="text-muted">Summary</h5>
+            <p>Design and build a system that solves a real customer's process pains. Our group decides to build an
+              eCommerce Web Application with Inventory and Customers Management built-in.</p>
+            <ul>
+              <li>Responsible for developing the client side with Angular 2+</li>
+              <li>Learned and applied the MEAN stack, specifically Angular 2 for the Front-End, to the web application
+              </li>
+              <li>Created and integrated Help documentation. (both doc and <a
+                href="http://usermanualmtlb.com.s3-website-us-west-2.amazonaws.com/">HTML version</a>)
+              </li>
+              <li>Spent over 100 hours on the project learning and designing in the course of 4 months of a semester
+              </li>
+            </ul>
+          </section>
+          <span class="title-border-bottom">
+            <i class="fa fa-eercast"></i>
+          </span>
+          <section class="my-3">
+            <h4 class="text-muted">Jenning Schools District</h4>
+            <p>University of Missouri - Saint Louis</p>
+            <p>Aug 2016 - Dec 2016</p>
+            <h5 class="text-muted">Summary</h5>
+            <p>Analyze and propose a solution for Jennings School District to improve their education.</p>
+            <ul>
+              <li>Created Questionaire to gather information from the teachers and students</li>
+              <li>Created a syllabus for an Online Computer Literacy course, which was the solution the group came up
+                with
+              </li>
+              <li>Deisgned the mock-up layout for the final proposal</li>
+            </ul>
+          </section>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+    <div class="col-lg-3 p-3">
+      <p-panel>
+        <p-panel header="Information">
+          <h2 class="name">Chau Tran</h2>
+          <p class="street">4023 Monsols Dr</p>
+          <p class="citi-state">Florissant, MO 63034</p>
+          <p class="phone">(314) 625-7789</p>
+          <a href="mailto:ctran3617@gmail.com" target="_blank"><i class="fa fa-envelope"></i> ctran3617@gmail.com</a>
+        </p-panel>
+        <p-panel header="Links">
+          <a href="https://github.com/nartc"><i class="fa fa-github"></i> Github</a>
+          <br>
+          <a href="https://linkedin.com/in/chauntran"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        </p-panel>
+        <p-panel header="Languages">
+          <p>English (Proficient)</p>
+          <p>Vietnamese (Native)</p>
+        </p-panel>
+        <p-panel header="Interests">
+          <p>Travelling</p>
+          <p>Food</p>
+          <p>Cycling</p>
+        </p-panel>
+        <button pButton label="Download my Resume" class="ui-button-success ui-blockui" icon="fa-download"
+                (click)="downloadFile()"></button>
+        <button pButton label="Back to Home" class="ui-button-secondary ui-blockui" icon="fa-angle-left" iconPos="left"
+                (click)="backToHome()"></button>
+      </p-panel>
+    </div>
+  </div>
+</div>

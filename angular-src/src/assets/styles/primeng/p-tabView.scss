@@ -1,0 +1,29 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/ p-tabView {
+  .ui-tabview {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .ui-tabview-nav {
+      li {
+        border-left: none;
+        border-right: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          a {
+            color: $navbar-active-color;
+            transform: translateY(-5px);
+            transition: all 0.3s ease-in-out;
+          }
+        }
+        &.ui-tabview-selected {
+          background: $navbar-main-color;
+        }
+      }
+
+    }
+  }
+}

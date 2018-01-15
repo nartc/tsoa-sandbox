@@ -1,0 +1,9 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/p-panel {
+  .ui-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
