@@ -1,0 +1,12 @@
+express:
+  port: port_num
+  debug: debut_num
+  host: host
+
+auth:
+  jwt_secret: 'jwt_secret'
+
+mongo:
+  mongo_uri: 'mongo_uri'
+
+loglevel: info

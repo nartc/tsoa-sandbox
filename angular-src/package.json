@@ -40,8 +40,7 @@
     "redux": "^3.7.2",
     "rxjs": "^5.5.2",
     "sweetalert2": "^7.3.5",
-    "zone.js": "^0.8.14",
-    "typescript": "^2.6.2"
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@types/chartjs": "0.0.31",

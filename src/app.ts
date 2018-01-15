@@ -39,7 +39,7 @@ class App {
         (mongoose as Mongoose).Promise = global.Promise;
 
         mongoose
-            .connect(config.get('mongo.mongo_uri'))
+            .connect(process.env.MONGO_URI || config.get('mongo.mongo_uri'))
             .then(this.onMongoConnection)
             .catch(this.onMongoError);
 
@@ -81,7 +81,7 @@ class App {
                 explorer: true,
                 swaggerUrl: 'http://localhost:8080/api/docs/swagger.json'
             };
-            
+
             this.app.use('/', this.apiDocsRoutes.getRouter());
             this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(null, this.swaggerOptions));
         }

@@ -69,7 +69,7 @@ export class UserController extends Controller {
         if (!isMatched) throw UserController.resolveErrorResponse(null, 'Password does not match');
 
         const payload = {user: fetchedUser};
-        const token: string = sign(payload, config.get('auth.jwt_secret'), {expiresIn: 1800});
+        const token: string = sign(payload, process.env.JWT_SECRET || config.get('auth.jwt_secret'), {expiresIn: 1800});
 
         if (!token) throw UserController.resolveErrorResponse(null, 'Error signing payload');
 

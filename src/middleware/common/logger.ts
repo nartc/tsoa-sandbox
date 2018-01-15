@@ -10,7 +10,7 @@ process.on('unhandledRejection', (reason, p) => {
     logger.warn('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason);
 });
 
-const level: string = config.get('loglevel');
+const level: string = config.get('loglevel') || process.env.LOG_LEVEL;
 
 export function setupLogging(app: Application) {
     /**
