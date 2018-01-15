@@ -15,7 +15,7 @@ import { UserRole } from './userRole';
 
 export interface ILoginResponse {
     authToken: string;
-    id?: string;
+    _id?: string;
     username?: string;
     email?: string;
     createdOn?: Date;

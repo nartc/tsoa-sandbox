@@ -15,7 +15,7 @@ import { UserRole } from './userRole';
 
 
 export interface IUserResponse {
-    id?: string;
+    _id?: string;
     username?: string;
     email?: string;
     password?: string;

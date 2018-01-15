@@ -8,6 +8,7 @@ import {IAppState} from '../store/IAppState';
 import {Observable} from 'rxjs/Observable';
 import {LocalStorageService} from './local-storage.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {tokenNotExpired} from 'angular2-jwt';
 
 @Injectable()
 export class AuthClientService {
@@ -20,6 +21,7 @@ export class AuthClientService {
   static USER_DATA_SAVED = 'USER_DATA_SAVED';
   static CURRENT_USER_FETCHING = 'CURRENT_USER_FETCHING';
   static CURRENT_USER_FETCHED = 'CURRENT_USER_FETCHED';
+  static REFRESH_CURRENT_USER = 'REFRESH_CURRENT_USER';
   static CURRENT_USER_UPDATING = 'CURRENT_USER_UPDATING';
   static CURRENT_USER_UPDATED = 'CURRENT_USER_UPDATED';
 
@@ -50,7 +52,7 @@ export class AuthClientService {
       });
   }
 
-  getCurrent(token: string): Observable<IUserResponse> {
+  getCurrent(token: string, refresh: boolean = false): Observable<IUserResponse> {
     this.fetchingCurrentUserAction();
     this.authApi.configuration = new Configuration({
       apiKeys: {
@@ -59,7 +61,17 @@ export class AuthClientService {
     });
     return this.authApi.getCurrentUser('body', true)
       .map((user: IUserResponse) => {
-        this.fetchedCurrentUserAction();
+        const userVm: IUserVm = {
+          _id: user._id,
+          username: user.username,
+          createdOn: user.createdOn,
+          updatedOn: user.updatedOn,
+          email: user.email,
+          role: user.role,
+          lastVisited: user.lastVisited,
+          profile: user.profile
+        };
+        refresh ? this.refreshCurrentUserAction(userVm, token) : this.fetchedCurrentUserAction(userVm);
         this.authApi.configuration.apiKeys['Authorization'] = null;
         return user;
       }, (error: HttpErrorResponse) => {
@@ -68,10 +80,21 @@ export class AuthClientService {
       });
   }
 
+  refreshLoginResult(): void {
+    const token = this.localStorageService.getObject('token');
+    if (token) {
+      this.getCurrent(token, true).subscribe();
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return tokenNotExpired('token');
+  }
+
   private storeUserData(result: ILoginResponse, useSession: boolean = false) {
     this.savingUserDataAction();
     const user: IUserVm = {
-      id: result.id,
+      _id: result._id,
       username: result.username,
       email: result.email,
       profile: result.profile,
@@ -88,6 +111,7 @@ export class AuthClientService {
     }
 
     this.localStorageService.setObject('current', user);
+    this.localStorageService.setObject('token', result.authToken);
     this.savedUserDataAction(user);
   }
 
@@ -125,8 +149,12 @@ export class AuthClientService {
     this.ngRedux.dispatch({type: AuthClientService.CURRENT_USER_FETCHING});
   }
 
-  private fetchedCurrentUserAction() {
-    this.ngRedux.dispatch({type: AuthClientService.CURRENT_USER_FETCHED});
+  private fetchedCurrentUserAction(user: IUserVm) {
+    this.ngRedux.dispatch({type: AuthClientService.CURRENT_USER_FETCHED, payload: user});
+  }
+
+  private refreshCurrentUserAction(user: IUserVm, token: string) {
+    this.ngRedux.dispatch({type: AuthClientService.REFRESH_CURRENT_USER, payload: {user, token}});
   }
 
   loggingInAction() {

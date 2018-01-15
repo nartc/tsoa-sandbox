@@ -14,7 +14,7 @@ import { UserRole } from './userRole';
 
 
 export interface IUserVm {
-    id?: string;
+    _id?: string;
     username: string;
     email: string;
     password?: string;

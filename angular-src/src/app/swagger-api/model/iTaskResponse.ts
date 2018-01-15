@@ -13,7 +13,7 @@ import { IUserVm } from './iUserVm';
 
 
 export interface ITaskResponse {
-    id?: string;
+    _id?: string;
     title?: string;
     content?: string;
     slug?: string;

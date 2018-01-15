@@ -31,7 +31,15 @@ export function AuthReducer(state: IAuthState = INITIAL_STATE, action: any): IAu
     case AuthActions.CURRENT_USER_FETCHING:
       return Object.assign({}, state, {});
     case AuthActions.CURRENT_USER_FETCHED:
-      return Object.assign({}, state, {});
+      return Object.assign({}, state, {
+        currentUser: action.payload
+      });
+    case AuthActions.REFRESH_CURRENT_USER:
+      return Object.assign({}, state, {
+        currentUser: action.payload.user,
+        authToken: action.payload.token,
+        isAuthenticated: true
+      });
     default:
       return state;
   }

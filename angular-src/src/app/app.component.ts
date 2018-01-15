@@ -12,6 +12,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import {Message} from 'primeng/components/common/message';
+import {AuthClientService} from './services/auth-client.service';
 
 @Component({
   selector: 'app-root',
@@ -23,12 +24,14 @@ export class AppComponent implements OnInit {
   growlMessages: Message[] = [];
   updateAvailable = false;
   updateBtnIcon = 'fa-refresh';
+
   constructor(private logUpdateService: LogSwUpdateService,
               private ngRedux: NgRedux<IAppState>,
               private devTools: DevToolsExtension,
               private _title: Title,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private authService: AuthClientService) {
   }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class AppComponent implements OnInit {
 
     this.ngRedux.configureStore(RootReducer, initialState, [], enhancers);
     this.registerTitleListener();
+    this.authService.refreshLoginResult();
   }
 
   registerTitleListener() {

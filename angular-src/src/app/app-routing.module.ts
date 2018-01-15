@@ -19,13 +19,13 @@ const defaultRoutes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: {title: 'TSOAsandbox | Login'},
-    canActivate: [ResumeGuardGuard]
+    // canActivate: [ResumeGuardGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
     data: {title: 'TSOAsandbox | Register'},
-    canActivate: [ResumeGuardGuard]
+    // canActivate: [ResumeGuardGuard]
   }
 ];
 
@@ -52,7 +52,7 @@ const routes: Routes = [
     path: 'user',
     component: UserLayoutComponent,
     children: userRoutes,
-    canActivate: [ResumeGuardGuard]
+    // canActivate: [ResumeGuardGuard]
   },
   {
     path: 'resume',
