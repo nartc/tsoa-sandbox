@@ -2,7 +2,8 @@
 A personal project utilizing TSOA with Node, Express and MongoDB for the Server; Angular 5 for the Client.
 
 # Progress
-* (Latest) Tested out the `ApiClient` that **Swagger-Codegen** generated. Everything worked out pretty well. I also initialized **Angular-Redux** from `@angular-redux/store`. This is going well so far.
+* (Latest) Deployed to **Heroku** as-is. Going to implement more on the Client-side when I've got time to work with it.
+* (Jan 12 2018) Tested out the `ApiClient` that **Swagger-Codegen** generated. Everything worked out pretty well. I also initialized **Angular-Redux** from `@angular-redux/store`. This is going well so far.
 * (Jan 11 2018) Initialized Angular 5 Frontend. I also tried to include **Angular's Service Worker** in this project. Let's see how far we can go. **Swagger-Codegen** is also working as expected. Good day!!
 * (Jan 10 2018) Finally got **Passport** integrated successfully. My routes can be protected with just one line of code (`@Security('JWT')`). Going to implement the rest of `TaskController` then move on to `Frontend`.
 * (Jan 10 2018) I've made some changes to `UserController` and finally got **SwaggerUI** integrated and working. The models are rendered fine. Next is to implement another `actor` into the application then move on to `front-end`.
