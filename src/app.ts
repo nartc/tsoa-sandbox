@@ -80,16 +80,16 @@ class App {
             this.swaggerOptions = {
                 explorer: true,
                 swaggerUrl: 'http://localhost:8080/api/docs/swagger.json'
-            }
+            };
+            
+            this.app.use('/', this.apiDocsRoutes.getRouter());
+            this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(null, this.swaggerOptions));
         }
 
         // Catch ALL
         this.app.all('/*', (req: Request, res: Response) => {
             res.sendFile(__dirname, '../public/index.html');
         });
-
-        this.app.use('/', this.apiDocsRoutes.getRouter());
-        this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(null, this.swaggerOptions));
     }
 
     private onMongoConnection() {
