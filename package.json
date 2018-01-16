@@ -21,7 +21,7 @@
     "swagger-client": "npm run clean-swagger && swagger-codegen generate -i http://localhost:8080/api/docs/swagger.json -o ./angular-src/src/app/swagger-api -l typescript-angular -c ./swagger-config.json",
     "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
     "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; cd ./angular-src/ && npm install",
-    "start": "tsc && npm run swagger-copy && node ./build/index.js",
+    "start": "tsc && node ./build/index.js",
     "start-prod": "npm run clean && cd ./angular-src/ && ng build --prod && cd .. && npm run start-gen"
   },
   "keywords": [
