@@ -8,6 +8,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {UserLayoutComponent} from './components/layouts/user-layout/user-layout.component';
 import {ResumeComponent} from './components/resume/resume.component';
 import {ResumeGuardGuard} from './guards/resume-guard.guard';
+import {TasksComponent} from './components/tasks/tasks.component';
 
 const defaultRoutes: Routes = [
   {

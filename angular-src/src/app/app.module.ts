@@ -32,6 +32,9 @@ import {AlertService} from './services/alert.service';
 import {MessageService} from 'primeng/components/common/messageservice';
 import {ResumeComponent} from './components/resume/resume.component';
 import {ResumeGuardGuard} from './guards/resume-guard.guard';
+import {TasksComponent} from './components/tasks/tasks.component';
+import {TaskFormComponent} from './components/task-form/task-form.component';
+import {TaskClientService} from './services/task-client.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import {ResumeGuardGuard} from './guards/resume-guard.guard';
     SidebarComponent,
     DashboardComponent,
     ResumeComponent,
+    TasksComponent,
+    TaskFormComponent,
     NavbarScrollDirective
   ],
   imports: [
@@ -65,6 +70,7 @@ import {ResumeGuardGuard} from './guards/resume-guard.guard';
     MessageService,
     LogSwUpdateService,
     AuthClientService,
+    TaskClientService,
     LocalStorageService,
     AlertService,
     ResumeGuardGuard

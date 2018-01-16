@@ -3,7 +3,7 @@ import {model} from 'mongoose';
 import {IUser, UserModel, UserSchema} from '../models/User';
 import {IUserRepository} from './IUserRepository';
 
-export class TaskRepository implements IUserRepository {
+export class UserRepository implements IUserRepository {
     private _userRepository: UserModel;
 
     constructor() {

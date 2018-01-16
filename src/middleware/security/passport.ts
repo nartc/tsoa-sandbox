@@ -5,10 +5,10 @@ import {PassportStatic} from 'passport';
 import {ExtractJwt, Strategy, StrategyOptions, VerifiedCallback} from 'passport-jwt';
 import {IUser} from '../../models/User';
 import {IUserRepository} from '../../repositories/IUserRepository';
-import {TaskRepository} from '../../repositories/UserRepository';
+import {UserRepository} from '../../repositories/UserRepository';
 
 export const authenticateUser = (passport: PassportStatic) => {
-    const _userRepository: IUserRepository = new TaskRepository();
+    const _userRepository: IUserRepository = new UserRepository();
 
     const options: StrategyOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),

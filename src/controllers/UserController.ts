@@ -8,7 +8,7 @@ import {ILoginParams, INewUserParams} from '../models/requests';
 import {IErrorResponse, ILoginResponse, IUserResponse} from '../models/responses';
 import {IUser, User} from '../models/User';
 import {IUserRepository} from '../repositories/IUserRepository';
-import {TaskRepository} from '../repositories/UserRepository';
+import {UserRepository} from '../repositories/UserRepository';
 import {Request as eRequest} from 'express';
 
 @Route('users')
@@ -22,7 +22,7 @@ export class UserController extends Controller {
         };
     }
 
-    private readonly _userRepository: IUserRepository = new TaskRepository();
+    private readonly _userRepository: IUserRepository = new UserRepository();
 
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')

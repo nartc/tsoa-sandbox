@@ -5,9 +5,11 @@ import {Body, Controller, Delete, Get, Path, Post, Put, Request, Response, Route
 import {INewTaskParams, IUpdateTaskParams} from '../models/requests';
 import {IErrorResponse, ITaskResponse} from '../models/responses';
 import {ITask, Task} from '../models/Task';
-import {IUser} from '../models/User';
+import {IUser, User} from '../models/User';
 import {ITaskRepository} from '../repositories/ITaskRepository';
 import {TaskRepository} from '../repositories/TaskRepository';
+import {IUserRepository} from '../repositories/IUserRepository';
+import {UserRepository} from '../repositories/UserRepository';
 
 @Route('tasks')
 export class TaskController extends Controller {
@@ -20,6 +22,7 @@ export class TaskController extends Controller {
     }
 
     private readonly _taskRepository: ITaskRepository = new TaskRepository();
+    private readonly _userRepository: IUserRepository = new UserRepository();
 
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse[]>('200', 'Success')
@@ -28,7 +31,7 @@ export class TaskController extends Controller {
     @Get()
     public async getTasks(@Request() request: eRequest): Promise<ITaskResponse[]> {
         const currentUser: IUser = request.user;
-
+        console.log(currentUser);
         if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
@@ -36,11 +39,11 @@ export class TaskController extends Controller {
             throw TaskController.resolveErrorResponse(null, 'No current User');
 
         const result = await this._taskRepository.getTasks(currentUser._id);
-
+        console.log(result);
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error fetching Tasks');
 
-        return result;
+        return <ITaskResponse[]>result;
     }
 
     @Response<IErrorResponse>('default', 'Error Occurred')
@@ -60,7 +63,7 @@ export class TaskController extends Controller {
         newTask.title = requestBody.title;
         newTask.content = requestBody.content;
         newTask.slug = this.generateSlug(newTask._id, newTask.title);
-
+        newTask.user = currentUser._id;
         const result = await this._taskRepository.createTask(newTask);
 
         if (result instanceof MongoError)
@@ -69,7 +72,7 @@ export class TaskController extends Controller {
         currentUser.tasks.push(result._id);
         try {
             currentUser.save();
-            return result;
+            return <ITaskResponse>result;
         } catch (error) {
             throw TaskController.resolveErrorResponse(error, 'Unexpected Error occurred');
         }
@@ -93,7 +96,7 @@ export class TaskController extends Controller {
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error fetching Task');
 
-        return result;
+        return <ITaskResponse>result;
     }
 
     @Response<IErrorResponse>('default', 'Error Occurred')
@@ -130,7 +133,7 @@ export class TaskController extends Controller {
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error updating Task');
 
-        return result;
+        return <ITaskResponse>result;
     }
 
     @Response<IErrorResponse>('default', 'Error Occurred')
@@ -152,11 +155,13 @@ export class TaskController extends Controller {
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error removing Task');
 
-        return result;
+        currentUser.tasks.splice(currentUser.tasks.indexOf(result._id), 1);
+        await this._userRepository.updateUser(currentUser._id, currentUser);
+        return <ITaskResponse>result;
     }
 
     private generateSlug(id: string, title: string) {
         const lastEight = id.toString().slice(-8);
-        return title.replace(/\s+/g, '-').toLowerCase().concat(lastEight);
+        return title.replace(/\s+/g, '-').toLowerCase().concat(`-${lastEight}`);
     }
 }

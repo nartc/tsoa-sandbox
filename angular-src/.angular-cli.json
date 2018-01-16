@@ -31,7 +31,8 @@
         "../node_modules/popper.js/dist/umd/popper.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/sweetalert2/dist/sweetalert2.min.js",
-        "../node_modules/chart.js/dist/Chart.js"
+        "../node_modules/chart.js/dist/Chart.js",
+        "../node_modules/automapper-ts/dist/automapper.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

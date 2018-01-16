@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import {LocalStorageService} from './local-storage.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {tokenNotExpired} from 'angular2-jwt';
+import {isEmpty} from 'lodash';
 
 @Injectable()
 export class AuthClientService {
@@ -82,7 +83,7 @@ export class AuthClientService {
 
   refreshLoginResult(): void {
     const token = this.localStorageService.getObject('token');
-    if (token) {
+    if (token && !isEmpty(token)) {
       this.getCurrent(token, true).subscribe();
     }
   }

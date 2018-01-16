@@ -1,4 +1,3 @@
-import {MongoError} from 'mongodb';
 import {Document, Model, model, Schema} from 'mongoose';
 import {User} from './User';
 
@@ -31,12 +30,6 @@ export const TaskSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-});
-
-TaskSchema.post('remove', async (error: MongoError, task: ITask) => {
-    const user = await User.findById(task.user);
-    user.tasks.splice(user.tasks.indexOf(task._id, 1));
-    user.save();
 });
 
 export interface ITask extends Document {

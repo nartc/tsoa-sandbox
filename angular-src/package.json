@@ -29,6 +29,7 @@
     "@angular/service-worker": "^5.0.0",
     "@toverux/ngx-sweetalert2": "^3.0.1",
     "angular2-jwt": "^0.2.3",
+    "automapper-ts": "^1.9.0",
     "bootstrap": "^4.0.0-beta.2",
     "chart.js": "^2.7.1",
     "core-js": "^2.4.1",
