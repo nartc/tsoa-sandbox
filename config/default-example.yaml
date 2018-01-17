@@ -1,5 +1,9 @@
 /**
  * Rename this file to default.yaml when you're done updating the variables.
+ * Another alternative is to export some Environment Variables: 
+ * - MONGO_URI
+ * - JWT_SECRET
+ * - LOG_LEVEL
  */
 
 /**
