@@ -17,7 +17,8 @@ A personal project utilizing TSOA with Node, Express and MongoDB for the Server;
 2. Install `rimraf` globally if haven't
 3. Install `swagger-codegen` if haven't. Visit: https://github.com/swagger-api/swagger-codegen
 4. Clone the project.
-5. Run `npm install` on both the Server and Client side (`angular-src`)
+5. Read `config/default-example.yaml`
+6. Run `npm install` on both the Server and Client side (`angular-src`)
 
 # Steps to start the project
 1. Run `npm run start-gen-dev` on project's root directory
