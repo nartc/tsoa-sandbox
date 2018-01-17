@@ -1,4 +1,8 @@
 /**
+ * Rename this file to default.yaml when you're done updating the variables.
+ */
+
+/**
  * Port and Host for Express backend.
  * Usually `localhost` for host.
  */
