@@ -1,12 +1,26 @@
+/**
+ * Port and Host for Express backend.
+ * Usually `localhost` for host.
+ */
 express:
   port: port_num
-  debug: debut_num
+  debug: debug_num
   host: host
 
+/**
+ * JWT Secret for Passport.
+ */
 auth:
   jwt_secret: 'jwt_secret'
 
+/**
+ * MongoURI connectionString
+ * Local: mongodb://localhost:27017/<database-name>
+ */
 mongo:
   mongo_uri: 'mongo_uri'
 
+/**
+ * Loglevel for winston's logger
+ */
 loglevel: info
