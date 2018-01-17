@@ -15,7 +15,7 @@ A personal project utilizing TSOA with Node, Express and MongoDB for the Server;
 # Steps to get the environment ready
 1. Install `nodemon` globally if haven't
 2. Install `rimraf` globally if haven't
-3. Install `swagger-codegen` if haven't. Visit: https://github.com/swagger-api/swagger-codegen
+3. (Optional for generating Code for Angular front-end) Install `swagger-codegen` if haven't. Visit: https://github.com/swagger-api/swagger-codegen
 4. Clone the project.
 5. Read `config/default-example.yaml`
 6. Run `npm install` on both the Server and Client side (`angular-src`)
