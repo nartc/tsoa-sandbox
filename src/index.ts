@@ -1,3 +1,4 @@
+import * as newrelic from 'newrelic';
 import * as debug from 'debug';
 import * as http from 'http';
 import * as config from 'config';

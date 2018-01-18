@@ -21,7 +21,7 @@
     "swagger-client": "npm run clean-swagger && swagger-codegen generate -i http://localhost:8080/api/docs/swagger.json -o ./angular-src/src/app/swagger-api -l typescript-angular -c ./swagger-config.json",
     "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
     "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; cd ./angular-src/ && npm install",
-    "start": "tsc && node ./build/index.js",
+    "start": "tsc && cp ./src/newrelic.js ./build/newrelic.js && node ./build/index.js",
     "start-prod": "npm run clean && cd ./angular-src/ && ng build --prod && cd .. && npm run start-gen"
   },
   "keywords": [
@@ -46,6 +46,7 @@
     "moment": "^2.20.1",
     "mongoose": "^5.0.0-rc2",
     "morgan": "^1.9.0",
+    "newrelic": "^2.6.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "swagger-ui-express": "^2.0.13",
