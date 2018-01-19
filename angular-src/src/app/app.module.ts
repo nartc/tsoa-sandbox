@@ -35,6 +35,7 @@ import {ResumeGuardGuard} from './guards/resume-guard.guard';
 import {TasksComponent} from './components/tasks/tasks.component';
 import {TaskFormComponent} from './components/task-form/task-form.component';
 import {TaskClientService} from './services/task-client.service';
+import {ContentHeadingComponent} from './components/partials/content-heading/content-heading.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {TaskClientService} from './services/task-client.service';
     ResumeComponent,
     TasksComponent,
     TaskFormComponent,
+    ContentHeadingComponent,
     NavbarScrollDirective
   ],
   imports: [

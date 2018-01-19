@@ -7,7 +7,6 @@ import {AuthClientService} from '../../../services/auth-client.service';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/combineLatest';
-import {LocalStorageService} from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-user-layout',
@@ -20,8 +19,7 @@ export class UserLayoutComponent implements OnInit {
   authToken: string;
 
   constructor(private authService: AuthClientService,
-              private taskService: TaskClientService,
-              private localStorageService: LocalStorageService) {
+              private taskService: TaskClientService) {
   }
 
   ngOnInit() {

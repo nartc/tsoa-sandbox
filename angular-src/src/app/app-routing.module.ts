@@ -14,18 +14,18 @@ const defaultRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    data: {title: 'TSOAsandbox | Home'}
+    data: {title: 'TSOAsandbox | Home', pageTitle: 'Home'}
   },
   {
     path: 'login',
     component: LoginComponent,
-    data: {title: 'TSOAsandbox | Login'},
+    data: {title: 'TSOAsandbox | Login', pageTitle: 'Login'},
     // canActivate: [ResumeGuardGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
-    data: {title: 'TSOAsandbox | Register'},
+    data: {title: 'TSOAsandbox | Register', pageTitle: 'Register'},
     // canActivate: [ResumeGuardGuard]
   }
 ];
@@ -39,12 +39,12 @@ const userRoutes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
-    data: {title: 'TSOAsandbox | Tasks'}
+    data: {title: 'TSOAsandbox | Tasks', pageTitle: 'Tasks'}
   },
   {
     path: ':username',
     component: DashboardComponent,
-    data: {title: 'TSOAsandbox | Dashboard'}
+    data: {title: 'TSOAsandbox | Dashboard', pageTitle: 'Dashboard'}
   },
 ];
 
@@ -63,7 +63,7 @@ const routes: Routes = [
   {
     path: 'resume',
     component: ResumeComponent,
-    data: {title: 'TSOAsandbox | Resume'}
+    data: {title: 'TSOAsandbox | Resume', pageTitle: 'Resume'}
   }
 ];
 

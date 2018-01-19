@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 
 import {ProgressBarModule} from 'primeng/components/progressbar/progressbar';
-import {DataTableModule} from 'primeng/components/datatable/datatable';
 import {ProgressSpinnerModule} from 'primeng/components/progressspinner/progressspinner';
 import {SharedModule} from 'primeng/components/common/shared';
 import {SidebarModule} from 'primeng/components/sidebar/sidebar';
@@ -13,11 +12,12 @@ import {GrowlModule} from 'primeng/components/growl/growl';
 import {TabViewModule} from 'primeng/components/tabview/tabview';
 import {ChartModule} from 'primeng/components/chart/chart';
 import {PanelMenuModule} from 'primeng/components/panelmenu/panelmenu';
+import {TableModule} from 'primeng/components/table/table';
+import {InputSwitchModule} from 'primeng/components/inputswitch/inputswitch';
 
 @NgModule({
   imports: [
     ProgressBarModule,
-    DataTableModule,
     ProgressSpinnerModule,
     SharedModule,
     SidebarModule,
@@ -28,11 +28,12 @@ import {PanelMenuModule} from 'primeng/components/panelmenu/panelmenu';
     GrowlModule,
     TabViewModule,
     ChartModule,
-    PanelMenuModule
+    PanelMenuModule,
+    TableModule,
+    InputSwitchModule
   ],
   exports: [
     ProgressBarModule,
-    DataTableModule,
     ProgressSpinnerModule,
     SharedModule,
     SidebarModule,
@@ -43,7 +44,9 @@ import {PanelMenuModule} from 'primeng/components/panelmenu/panelmenu';
     GrowlModule,
     TabViewModule,
     ChartModule,
-    PanelMenuModule
+    PanelMenuModule,
+    TableModule,
+    InputSwitchModule
   ]
 })
 

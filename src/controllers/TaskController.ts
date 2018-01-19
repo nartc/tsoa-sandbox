@@ -5,7 +5,7 @@ import {Body, Controller, Delete, Get, Path, Post, Put, Request, Response, Route
 import {INewTaskParams, IUpdateTaskParams} from '../models/requests';
 import {IErrorResponse, ITaskResponse} from '../models/responses';
 import {ITask, Task} from '../models/Task';
-import {IUser, User} from '../models/User';
+import {IUser} from '../models/User';
 import {ITaskRepository} from '../repositories/ITaskRepository';
 import {TaskRepository} from '../repositories/TaskRepository';
 import {IUserRepository} from '../repositories/IUserRepository';
@@ -31,7 +31,6 @@ export class TaskController extends Controller {
     @Get()
     public async getTasks(@Request() request: eRequest): Promise<ITaskResponse[]> {
         const currentUser: IUser = request.user;
-        console.log(currentUser);
         if (currentUser instanceof MongoError)
             throw TaskController.resolveErrorResponse(currentUser, 'Error getting current User');
 
@@ -39,7 +38,7 @@ export class TaskController extends Controller {
             throw TaskController.resolveErrorResponse(null, 'No current User');
 
         const result = await this._taskRepository.getTasks(currentUser._id);
-        console.log(result);
+
         if (result instanceof MongoError)
             throw TaskController.resolveErrorResponse(result, 'Error fetching Tasks');
 

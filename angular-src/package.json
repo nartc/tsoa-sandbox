@@ -38,7 +38,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "popper.js": "^1.12.9",
-    "primeng": "^5.0.2",
+    "primeng": "^5.2.0-rc.1",
     "redux": "^3.7.2",
     "rxjs": "^5.5.2",
     "sweetalert2": "^7.3.5",

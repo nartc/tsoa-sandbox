@@ -1,3 +1,31 @@
-<p>
-  tasks works!
-</p>
+<app-content-heading [headingText]="pageTitle"></app-content-heading>
+<p-table [value]="tasks" [loading]="loading">
+  <ng-template pTemplate="caption">
+    Tasks List
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Title</th>
+      <th>Date Created</th>
+      <th>Last Updated</th>
+      <th>View Detail</th>
+      <th>Complete Task</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-task>
+    <tr>
+      <td>{{task.title}}</td>
+      <td>{{task.createdOn | date:'short'}}</td>
+      <td>{{task.updatedOn | date:'short'}}</td>
+      <td>
+        <button pButton icon="fa-search" class="ui-button-success" (click)="onDetailClick(task)"></button>
+      </td>
+      <td>
+        <p-inputSwitch onLabel="Yes" offLabel="No" [ngModel]="task.isCompleted" (ngModelChange)="onCompleteTaskHandler(task)"></p-inputSwitch>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    {{tasks?.length}} task{{tasks?.length > 1 ? s : ''}}
+  </ng-template>
+</p-table>
