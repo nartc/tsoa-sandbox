@@ -12,6 +12,7 @@ import {CheckboxModule} from 'primeng/components/checkbox/checkbox';
 import {GrowlModule} from 'primeng/components/growl/growl';
 import {TabViewModule} from 'primeng/components/tabview/tabview';
 import {ChartModule} from 'primeng/components/chart/chart';
+import {PanelMenuModule} from 'primeng/components/panelmenu/panelmenu';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {ChartModule} from 'primeng/components/chart/chart';
     CheckboxModule,
     GrowlModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    PanelMenuModule
   ],
   exports: [
     ProgressBarModule,
@@ -40,7 +42,8 @@ import {ChartModule} from 'primeng/components/chart/chart';
     CheckboxModule,
     GrowlModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    PanelMenuModule
   ]
 })
 

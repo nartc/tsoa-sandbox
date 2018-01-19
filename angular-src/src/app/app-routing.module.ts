@@ -33,14 +33,19 @@ const defaultRoutes: Routes = [
 const userRoutes: Routes = [
   {
     path: '',
-    redirectTo: ':id',
+    redirectTo: ':username',
     pathMatch: 'full'
   },
   {
-    path: ':id',
+    path: 'tasks',
+    component: TasksComponent,
+    data: {title: 'TSOAsandbox | Tasks'}
+  },
+  {
+    path: ':username',
     component: DashboardComponent,
     data: {title: 'TSOAsandbox | Dashboard'}
-  }
+  },
 ];
 
 const routes: Routes = [

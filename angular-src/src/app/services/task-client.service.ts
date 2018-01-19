@@ -18,10 +18,11 @@ export class TaskClientService {
 
   constructor(private taskApi: TaskService,
               private ngRedux: NgRedux<IAppState>) {
-
   }
 
-  getTasksByUserId(token: string): Observable<ITaskVm[]> {
+  getTasksByUser(token: string): Observable<ITaskVm[]> {
+    automapper.createMap('ITaskResponse[]', 'ITaskVm[]')
+      .forSourceMember('user', (opts) => opts.ignore());
     this.currentTasksLoadingAction();
     this.taskApi.configuration = new Configuration({
       apiKeys: {
@@ -31,12 +32,7 @@ export class TaskClientService {
     return this.taskApi.getTasks()
       .filter(data => !!data)
       .map((response: ITaskResponse[]) => {
-        console.log(response);
-        automapper.createMap('ITaskResponse[]', 'ITaskVm[]')
-          .forMember('user', (opts) => opts.ignore());
-
         const tasks: ITaskVm[] = automapper.map('ITaskResponse[]', 'ITaskVm[]', response);
-        console.log(tasks);
         this.currentTasksLoadedAction(tasks);
         this.taskApi.configuration.apiKeys['Authorization'] = null;
         return tasks;

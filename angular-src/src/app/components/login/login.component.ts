@@ -68,9 +68,9 @@ export class LoginComponent extends BaseForm implements OnInit {
          * - User
          */
         if (role === UserRole.User) {
-          this.router.navigate(['/user', result._id]);
+          this.router.navigate(['/user', result.username]);
         } else if (role === UserRole.Admin) {
-          this.router.navigate(['/admin', result._id]);
+          this.router.navigate(['/admin', result.username]);
         }
       }, (error: HttpErrorResponse) => {
         console.log(error);
