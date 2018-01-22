@@ -34,7 +34,6 @@
   "author": "Chau Tran",
   "license": "MIT",
   "dependencies": {
-    "@angular-redux/store": "^7.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "config": "^1.29.0",
@@ -44,11 +43,12 @@
     "js-yaml": "^3.10.0",
     "jsonwebtoken": "^8.1.0",
     "moment": "^2.20.1",
-    "mongoose": "^5.0.0-rc2",
+    "mongoose": "^5.0.1",
     "morgan": "^1.9.0",
     "newrelic": "^2.6.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
+    "request": "^2.83.0",
     "swagger-ui-express": "^2.0.13",
     "tsoa": "^2.0.1",
     "winston": "^2.4.0"

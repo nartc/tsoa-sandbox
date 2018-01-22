@@ -1,0 +1,37 @@
+@import './p-variables';
+@import '../../../variables';
+
+/deep/p-table {
+  .ui-table {
+    border: 1px solid white;
+    .ui-table-caption,
+    .ui-table-summary{
+      background: $table-header-footer;
+      color: $text-color-bright;
+    }
+    .ui-table-wrapper {
+      .ui-table-thead,
+      .ui-table-tfoot {
+        background: $table-row-hover;
+        color: $text-color-dark;
+        font-weight: bold;
+      }
+
+      .ui-table-tbody {
+        > tr {
+          color: $text-color-bright;
+          &:nth-child(odd) {
+            background: $table-row-odd;
+          }
+          &:nth-child(even) {
+            background: $table-row-even;
+          }
+          &:hover,
+          &.ui-state-active {
+            background: $table-row-hover;
+          }
+        }
+      }
+    }
+  }
+}
