@@ -22,7 +22,7 @@ export class UserController extends Controller {
         };
     }
 
-    private readonly _userRepository: IUserRepository = new UserRepository();
+    private readonly _userRepository: IUserRepository = new UserRepository(User);
 
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')
@@ -46,7 +46,7 @@ export class UserController extends Controller {
         const salt = await genSalt(10);
         newUser.password = await hash(password, salt);
 
-        return await this._userRepository.createUser(newUser);
+        return await <IUserResponse>this._userRepository.createUser(newUser);
     }
 
     @Response<IErrorResponse>('default', 'Error Occurred')

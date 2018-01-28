@@ -5,7 +5,7 @@ import {Body, Controller, Delete, Get, Path, Post, Put, Request, Response, Route
 import {INewTaskParams, IUpdateTaskParams} from '../models/requests';
 import {IErrorResponse, ITaskResponse} from '../models/responses';
 import {ITask, Task} from '../models/Task';
-import {IUser} from '../models/User';
+import {IUser, User} from '../models/User';
 import {ITaskRepository} from '../repositories/ITaskRepository';
 import {TaskRepository} from '../repositories/TaskRepository';
 import {IUserRepository} from '../repositories/IUserRepository';
@@ -21,8 +21,8 @@ export class TaskController extends Controller {
         };
     }
 
-    private readonly _taskRepository: ITaskRepository = new TaskRepository();
-    private readonly _userRepository: IUserRepository = new UserRepository();
+    private readonly _taskRepository: ITaskRepository = new TaskRepository(Task);
+    private readonly _userRepository: IUserRepository = new UserRepository(User);
 
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse[]>('200', 'Success')
@@ -61,7 +61,7 @@ export class TaskController extends Controller {
         const newTask: ITask = new Task();
         newTask.title = requestBody.title;
         newTask.content = requestBody.content;
-        newTask.slug = this.generateSlug(newTask._id, newTask.title);
+        newTask.slug = TaskController.generateSlug(newTask._id, newTask.title);
         newTask.user = currentUser._id;
         const result = await this._taskRepository.createTask(newTask);
 
@@ -70,7 +70,7 @@ export class TaskController extends Controller {
 
         currentUser.tasks.push(result._id);
         try {
-            currentUser.save();
+            await currentUser.save();
             return <ITaskResponse>result;
         } catch (error) {
             throw TaskController.resolveErrorResponse(error, 'Unexpected Error occurred');
@@ -120,7 +120,7 @@ export class TaskController extends Controller {
 
         currentTask.title = updatedTask.title;
         currentTask.content = updatedTask.content;
-        currentTask.slug = this.generateSlug(currentTask._id, updatedTask.title);
+        currentTask.slug = TaskController.generateSlug(currentTask._id, updatedTask.title);
 
         if (updatedTask.completed) {
             currentTask.isCompleted = true;
@@ -159,7 +159,7 @@ export class TaskController extends Controller {
         return <ITaskResponse>result;
     }
 
-    private generateSlug(id: string, title: string) {
+    private static generateSlug(id: string, title: string) {
         const lastEight = id.toString().slice(-8);
         return title.replace(/\s+/g, '-').toLowerCase().concat(`-${lastEight}`);
     }
