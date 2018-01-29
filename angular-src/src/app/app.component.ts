@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   updateAvailable = false;
   updateBtnIcon = 'fa-refresh';
 
-  constructor(
+  constructor(private logUpdateService: LogSwUpdateService,
               private ngRedux: NgRedux<IAppState>,
               private devTools: DevToolsExtension,
               private _title: Title,
@@ -35,9 +35,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.logUpdateService.registerUpdatesListener().subscribe((event: UpdateAvailableEvent) => {
-    //   this.updateAvailable = true;
-    // });
+    this.logUpdateService.registerUpdatesListener().subscribe((event: UpdateAvailableEvent) => {
+      this.updateAvailable = true;
+    });
 
     const initialState = {} as IAppState;
     const enhancers = [];

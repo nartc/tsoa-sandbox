@@ -64,11 +64,13 @@ import {ContentHeadingComponent} from './components/partials/content-heading/con
     ReactiveFormsModule,
     NgReduxModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     ApiModule.forRoot(configurationApi),
     PrimeNgImportsModule
   ],
   providers: [
     MessageService,
+    LogSwUpdateService,
     AuthClientService,
     TaskClientService,
     LocalStorageService,
