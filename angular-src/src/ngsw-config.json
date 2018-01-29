@@ -1,33 +1,52 @@
 {
   "index": "/index.html",
-  "assetGroups": [{
-    "name": "app",
-    "installMode": "prefetch",
-    "resources": {
-      "files": [
-        "/favicon.ico",
-        "/index.html"
-      ],
-      "versionedFiles": [
-        "/*.bundle.css",
-        "/*.bundle.js",
-        "/*.chunk.js"
-      ]
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html"
+        ],
+        "versionedFiles": [
+          "/*.bundle.css",
+          "/*.bundle.js",
+          "/*.chunk.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/*.docx",
+          "/assets/styles/**",
+          "/assets/img/**",
+          "/assets/font/**"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://tsoanartc.herokuapp.com/api/docs/"
+        ]
+      }
     }
-  }, {
-    "name": "assets",
-    "installMode": "lazy",
-    "updateMode": "prefetch",
-    "resources": {
-      "files": [
-        "/assets/*.docx",
-        "/assets/styles/**",
-        "/assets/img/**",
-        "/assets/font/**"
-      ],
+  ],
+  "dataGroups": [
+    {
+      "name": "SwaggerUI",
       "urls": [
-        "https://fonts.googleapis.com/**"
-      ]
+        "/api/docs",
+        "api/docs/swagger.json"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 20,
+        "maxAge": "1h",
+        "timeout": "5s"
+      }
     }
-  }]
+  ]
 }
