@@ -82,7 +82,7 @@ import {ContentHeadingComponent} from './components/partials/content-heading/con
 export class AppModule {
 }
 
-function configurationApi(): Configuration {
+export function configurationApi(): Configuration {
   if (environment.production) {
     return new Configuration({
       basePath: 'https://tsoanartc.herokuapp.com/api'
