@@ -9,6 +9,7 @@ import {UserLayoutComponent} from './components/layouts/user-layout/user-layout.
 import {ResumeComponent} from './components/resume/resume.component';
 import {ResumeGuardGuard} from './guards/resume-guard.guard';
 import {TasksComponent} from './components/tasks/tasks.component';
+import {TaskFormComponent} from './components/task-form/task-form.component';
 
 const defaultRoutes: Routes = [
   {
@@ -35,6 +36,16 @@ const userRoutes: Routes = [
     path: '',
     redirectTo: ':username',
     pathMatch: 'full'
+  },
+  {
+    path: 'tasks/edit/:id',
+    component: TaskFormComponent,
+    data: {title: 'TSOAsandbox | Edit Task', pageTitle: 'Tasks'}
+  },
+  {
+    path: 'tasks/create',
+    component: TaskFormComponent,
+    data: {title: 'TSOAsandbox | Create Task', pageTitle: 'Tasks'}
   },
   {
     path: 'tasks',

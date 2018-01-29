@@ -3,7 +3,7 @@ import {TaskClientService as TaskActions} from '../../services/task-client.servi
 
 const INITIAL_STATE = {
   currentUserTasks: [],
-  creatingTask: {},
+  createdTask: {},
   editingTask: {}
 } as ITaskState;
 
@@ -14,6 +14,13 @@ export function TaskReducer(state: ITaskState = INITIAL_STATE, action: any): ITa
     case TaskActions.CURRENT_TASKS_LOADED:
       return Object.assign({}, state, {
         currentUserTasks: action.payload
+      });
+    case TaskActions.CREATING_TASK:
+      return Object.assign({}, state, {});
+    case TaskActions.TASK_CREATED:
+      return Object.assign({}, state, {
+        currentUserTasks: [...action.payload],
+        createdTask: action.payload
       });
     default:
       return state;

@@ -83,8 +83,10 @@ export class AuthClientService {
 
   refreshLoginResult(): void {
     const token = this.localStorageService.getObject('token');
-    if (token && !isEmpty(token)) {
+    if (tokenNotExpired('token') && token && !isEmpty(token)) {
       this.getCurrent(token, true).subscribe();
+    } else {
+      this.localStorageService.clear();
     }
   }
 

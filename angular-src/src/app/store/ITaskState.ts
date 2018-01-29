@@ -2,6 +2,6 @@ import {ITaskVm} from '../swagger-api';
 
 export interface ITaskState {
   readonly currentUserTasks: ITaskVm[];
-  readonly creatingTask: ITaskVm;
+  readonly createdTask: ITaskVm;
   readonly editingTask: ITaskVm;
 }

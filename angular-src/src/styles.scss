@@ -8,6 +8,11 @@ body {
   background: $main-bg-color !important;
   color: $text-color-bright !important;
 }
+
+a {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: gotham_htfbold;
   src: url(./assets/font/Gotham-Bold.otf);

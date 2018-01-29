@@ -1,7 +1,7 @@
 @import './p-variables';
 @import '../../../variables';
 
-/deep/p-panelMenu {
+/deep/ p-panelMenu {
   .ui-panelmenu {
     &:focus {
       outline: none;
@@ -10,17 +10,46 @@
     .ui-panelmenu-panel {
       border: none;
       border-bottom: 0.5px solid $text-color-grey;
-    }
 
-    a {
-      text-transform: uppercase;
-      font-size: 18px;
-      background: $text-color-bright;
-      color: $text-color-dark;
-      transition: 0.3s all ease-in-out;
+      .ui-panelmenu-header {
+        a {
+          text-transform: uppercase;
+          font-size: 18px;
+          background: $text-color-bright;
+          color: $text-color-dark;
+          transition: 0.3s all ease-in-out;
 
-      &.ui-state-active {
-        color: darken($navbar-active-color, 5%);
+          span {
+            color: $text-color-dark;
+            transition: 0.3s all ease-in-out;
+          }
+        }
+
+        &.ui-state-active a {
+          color: darken($navbar-active-color, 5%);
+
+          span {
+            color: darken($navbar-active-color, 5%);
+          }
+        }
+      }
+
+      .ui-panelmenu-content-wrapper {
+        .ui-panelmenu-content {
+          border: none;
+          li.ui-menuitem {
+            a {
+              font-size: 14px;
+              background: $text-color-bright;
+              color: $text-color-dark;
+              transition: 0.3s all ease-in-out;
+
+              &.ui-state-active {
+                color: darken($navbar-active-color, 10%);
+              }
+            }
+          }
+        }
       }
     }
   }

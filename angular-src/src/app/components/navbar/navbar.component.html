@@ -21,6 +21,14 @@
         <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}">SIGN IN</a>
       </li>
+
+      <li class="nav-item" *ngIf="_authService.isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/user/', currentUser?.username]" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">DASHBOARD</a>
+      </li>
+      <li class="nav-item" *ngIf="_authService.isLoggedIn()">
+        <a class="nav-link" (click)="onSignoutClick()">SIGN OUT</a>
+      </li>
     </ul>
   </div>
 </nav>

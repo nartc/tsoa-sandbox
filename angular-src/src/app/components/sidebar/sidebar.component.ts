@@ -39,9 +39,21 @@ export class SidebarComponent implements OnInit {
     this.items = [
       {
         label: 'Tasks',
-        routerLink: ['tasks'],
-        routerLinkActiveOptions: {exact: true},
-        id: 'tasks-item'
+        id: 'tasks-item',
+        items: [
+          {
+            label: 'View Tasks',
+            routerLink: ['tasks'],
+            routerLinkActiveOptions: {exact: true},
+            id: 'view-tasks'
+          },
+          {
+            label: 'Create Task',
+            routerLink: ['tasks/create'],
+            routerLinkActiveOptions: {exact: true},
+            id: 'create-task'
+          }
+        ]
       }
     ]
   }
