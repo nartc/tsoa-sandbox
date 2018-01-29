@@ -61,9 +61,6 @@ class App {
         this.app.use(passport.session());
         authenticateUser(passport);
 
-        // Static
-        this.app.use(express.static(path.join(__dirname, '../public')));
-
         // Call Routes
         RegisterRoutes(this.app);
     }
@@ -76,11 +73,14 @@ class App {
 
         // if (this.environmentHost === 'Development') {
         // }
-            this.app.use('/', this.apiDocsRoutes.getRouter());
-            this.app.use('/api/docs', express.static(path.join(__dirname, '../src/documentation/swagger-ui')));
+
+        // Static
+        this.app.use('/', express.static(path.join(__dirname, '../public')));
+        this.app.use('/', this.apiDocsRoutes.getRouter());
+        this.app.use('/api/docs', express.static(path.join(__dirname, '../src/documentation/swagger-ui')));
 
         // Catch ALL
-        this.app.all('/*', (req: Request, res: Response) => {
+        this.app.all('**', (req: Request, res: Response) => {
             res.sendFile(path.join(__dirname, '../public/index.html'));
         });
     }
