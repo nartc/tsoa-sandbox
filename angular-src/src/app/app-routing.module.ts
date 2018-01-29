@@ -75,6 +75,11 @@ const routes: Routes = [
     path: 'resume',
     component: ResumeComponent,
     data: {title: 'TSOAsandbox | Resume', pageTitle: 'Resume'}
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: ''
   }
 ];
 
