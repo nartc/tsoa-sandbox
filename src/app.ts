@@ -81,7 +81,7 @@ class App {
 
         // Catch ALL
         this.app.all('/*', (req: Request, res: Response) => {
-            res.sendFile(__dirname, '../public/index.html');
+            res.sendFile(path.join(__dirname, '../public/index.html'));
         });
     }
 
