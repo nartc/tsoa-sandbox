@@ -34,7 +34,6 @@
     ],
     "outputDirectory": "./src",
     "entryFile": "./src/app.ts",
-    "host": "localhost:8080",
     "basePath": "/api"
   },
   "routes": {
