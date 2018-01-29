@@ -74,10 +74,10 @@ class App {
             res.send('Index worked');
         });
 
-        if (this.environmentHost === 'Development') {
+        // if (this.environmentHost === 'Development') {
+        // }
             this.app.use('/', this.apiDocsRoutes.getRouter());
             this.app.use('/api/docs', express.static(path.join(__dirname, '../src/documentation/swagger-ui')));
-        }
 
         // Catch ALL
         this.app.all('/*', (req: Request, res: Response) => {
