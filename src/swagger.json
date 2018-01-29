@@ -617,6 +617,5 @@
 			"name": "Authorization",
 			"in": "header"
 		}
-	},
-	"host": "localhost:8080"
+	}
 }
