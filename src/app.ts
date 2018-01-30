@@ -6,6 +6,7 @@ import * as logger from 'morgan';
 import * as passport from 'passport';
 import * as path from 'path';
 import * as config from 'config';
+import * as swaggerUI from 'swagger-ui-express';
 
 import {logger as winston, setupLogging} from './middleware/common/logger';
 import {MongoError} from 'mongodb';
@@ -63,7 +64,13 @@ class App {
 
         // SwaggerUI
         this.app.use('/', this.apiDocsRoutes.getRouter());
-        this.app.use('/api/docs', express.static(path.join(__dirname, '../src/documentation/swagger-ui')));
+        // this.app.use('/api/docs', express.static(path.join(__dirname, '../src/documentation/swagger-ui')));
+        this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(null, {
+            explorer: true,
+            swaggerUrl: this.environmentHost === 'Development'
+                ? 'http://localhost:8080/api/docs/swagger.json'
+                : 'https://tsoanartc.herokuapp.com/api/docs/swagger.json'
+        }));
 
         // Static
         this.app.use(express.static(path.join(__dirname, '../public')));
