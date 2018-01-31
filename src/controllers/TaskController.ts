@@ -12,6 +12,7 @@ import {IUserRepository} from '../repositories/IUserRepository';
 import {UserRepository} from '../repositories/UserRepository';
 
 @Route('tasks')
+@Tags('Task')
 export class TaskController extends Controller {
     private static resolveErrorResponse(error: MongoError | null, message: string): IErrorResponse {
         return {
@@ -24,9 +25,14 @@ export class TaskController extends Controller {
     private readonly _taskRepository: ITaskRepository = new TaskRepository(Task);
     private readonly _userRepository: IUserRepository = new UserRepository(User);
 
+    /**
+     * Get current authenticated user tasks
+     *
+     * @param {e.Request} request Authenticated User Payload
+     * @returns {Promise<ITaskResponse[]>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse[]>('200', 'Success')
-    @Tags('Task')
     @Security('JWT')
     @Get()
     public async getTasks(@Request() request: eRequest): Promise<ITaskResponse[]> {
@@ -45,9 +51,15 @@ export class TaskController extends Controller {
         return <ITaskResponse[]>result;
     }
 
+    /**
+     * Create a new task
+     *
+     * @param {INewTaskParams} requestBody Parameters for a new task
+     * @param {e.Request} request Authenticated User Payload
+     * @returns {Promise<ITaskResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse>('200', 'Success')
-    @Tags('Task')
     @Security('JWT')
     @Post('create')
     public async createTask(@Body() requestBody: INewTaskParams, @Request() request: eRequest): Promise<ITaskResponse> {
@@ -77,9 +89,15 @@ export class TaskController extends Controller {
         }
     }
 
+    /**
+     * Get detail of a single task
+     *
+     * @param {string} slug Task's slug from API route's path parameter
+     * @param {e.Request} request
+     * @returns {Promise<ITaskResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse>('200', 'Success')
-    @Tags('Task')
     @Security('JWT')
     @Get('{slug}')
     public async getSingleTask(@Path() slug: string, @Request() request: eRequest): Promise<ITaskResponse> {
@@ -98,9 +116,16 @@ export class TaskController extends Controller {
         return <ITaskResponse>result;
     }
 
+    /**
+     * Update a single task
+     *
+     * @param {string} slug Task's slug from API route's path parameter
+     * @param {IUpdateTaskParams} updatedTask Parameters to update an existed task
+     * @param {e.Request} request
+     * @returns {Promise<ITaskResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse>('200', 'Success')
-    @Tags('Task')
     @Security('JWT')
     @Put('{slug}')
     public async updateTask(@Path() slug: string,
@@ -135,9 +160,15 @@ export class TaskController extends Controller {
         return <ITaskResponse>result;
     }
 
+    /**
+     * Remove a single task
+     *
+     * @param {string} slug Task's slug from API's route path parameter
+     * @param {e.Request} request
+     * @returns {Promise<ITaskResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ITaskResponse>('200', 'Success')
-    @Tags('Task')
     @Security('JWT')
     @Delete('{slug}')
     public async removeTask(@Path() slug: string,

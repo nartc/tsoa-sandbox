@@ -24,6 +24,12 @@ export class UserController extends Controller {
 
     private readonly _userRepository: IUserRepository = new UserRepository(User);
 
+    /**
+     * Register new user
+     *
+     * @param {INewUserParams} requestBody Parameters to register new user
+     * @returns {Promise<IUserResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error occurred')
     @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')
@@ -49,6 +55,12 @@ export class UserController extends Controller {
         return await <IUserResponse>this._userRepository.createUser(newUser);
     }
 
+    /**
+     * Login user
+     *
+     * @param {ILoginParams} loginParams Parameters to login
+     * @returns {Promise<ILoginResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<ILoginResponse>('200', 'Success')
     @Tags('Auth')
@@ -94,6 +106,12 @@ export class UserController extends Controller {
         }
     }
 
+    /**
+     * Get detail information of a user
+     *
+     * @param {e.Request} request
+     * @returns {Promise<IUserResponse>}
+     */
     @Response<IErrorResponse>('default', 'Error Occurred')
     @Response<IUserResponse>('200', 'Success')
     @Tags('Auth')

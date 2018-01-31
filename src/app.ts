@@ -35,7 +35,7 @@ class App {
 
     configure(): void {
         // Connect to MongoDB
-        (mongoose as Mongoose).Promise = global.Promise;
+
 
         mongoose
             .connect(process.env.MONGO_URI || config.get('mongo.mongo_uri'))
@@ -58,9 +58,9 @@ class App {
         }));
 
         // Passport MW
+        authenticateUser(passport);
         this.app.use(passport.initialize());
         this.app.use(passport.session());
-        authenticateUser(passport);
 
         // SwaggerUI
         this.app.use('/', this.apiDocsRoutes.getRouter());

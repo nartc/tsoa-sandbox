@@ -303,12 +303,9 @@
 		}
 	},
 	"info": {
-		"title": "TSOA-Node-Express",
-		"version": "1.0.0",
 		"description": "TSOA-NodeExpress Documentation",
-		"license": {
-			"name": "MIT"
-		}
+		"version": "1.0.1",
+		"title": "TSOA-Node Express"
 	},
 	"paths": {
 		"/users/register": {
@@ -331,12 +328,14 @@
 						}
 					}
 				},
+				"description": "Register new user",
 				"tags": [
 					"Auth"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "Parameters to register new user",
 						"in": "body",
 						"name": "requestBody",
 						"required": true,
@@ -367,12 +366,14 @@
 						}
 					}
 				},
+				"description": "Login user",
 				"tags": [
 					"Auth"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "Parameters to login",
 						"in": "body",
 						"name": "loginParams",
 						"required": true,
@@ -403,6 +404,7 @@
 						}
 					}
 				},
+				"description": "Get detail information of a user",
 				"tags": [
 					"Auth"
 				],
@@ -437,6 +439,7 @@
 						}
 					}
 				},
+				"description": "Get current authenticated user tasks",
 				"tags": [
 					"Task"
 				],
@@ -468,6 +471,7 @@
 						}
 					}
 				},
+				"description": "Create a new task",
 				"tags": [
 					"Task"
 				],
@@ -478,6 +482,7 @@
 				],
 				"parameters": [
 					{
+						"description": "Parameters for a new task",
 						"in": "body",
 						"name": "requestBody",
 						"required": true,
@@ -508,6 +513,7 @@
 						}
 					}
 				},
+				"description": "Get detail of a single task",
 				"tags": [
 					"Task"
 				],
@@ -518,6 +524,7 @@
 				],
 				"parameters": [
 					{
+						"description": "Task's slug from API route's path parameter",
 						"in": "path",
 						"name": "slug",
 						"required": true,
@@ -544,6 +551,7 @@
 						}
 					}
 				},
+				"description": "Update a single task",
 				"tags": [
 					"Task"
 				],
@@ -554,12 +562,14 @@
 				],
 				"parameters": [
 					{
+						"description": "Task's slug from API route's path parameter",
 						"in": "path",
 						"name": "slug",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "Parameters to update an existed task",
 						"in": "body",
 						"name": "updatedTask",
 						"required": true,
@@ -588,6 +598,7 @@
 						}
 					}
 				},
+				"description": "Remove a single task",
 				"tags": [
 					"Task"
 				],
@@ -598,6 +609,7 @@
 				],
 				"parameters": [
 					{
+						"description": "Task's slug from API's route path parameter",
 						"in": "path",
 						"name": "slug",
 						"required": true,
@@ -611,6 +623,16 @@
 		"application/json"
 	],
 	"swagger": "2.0",
+	"tags": [
+		{
+			"name": "Auth",
+			"description": "Access to User's related RestAPI"
+		},
+		{
+			"name": "Task",
+			"description": "Access to Task's related RestAPI"
+		}
+	],
 	"securityDefinitions": {
 		"JWT": {
 			"type": "apiKey",
