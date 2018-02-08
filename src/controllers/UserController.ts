@@ -3,8 +3,8 @@ import * as config from 'config';
 import {sign} from 'jsonwebtoken';
 import * as moment from 'moment';
 import {MongoError} from 'mongodb';
-import {Body, Controller, Get, Post, Request, Response, Route, Security, Tags} from 'tsoa';
-import {ILoginParams, INewUserParams} from '../models/requests';
+import {Body, Controller, FormFile, Get, Path, Post, Request, Response, Route, Security, Tags} from 'tsoa';
+import {IFileReference, ILoginParams, INewUserParams} from '../models/requests';
 import {IErrorResponse, ILoginResponse, IUserResponse} from '../models/responses';
 import {IUser, User} from '../models/User';
 import {IUserRepository} from '../repositories/IUserRepository';
@@ -53,6 +53,23 @@ export class UserController extends Controller {
         newUser.password = await hash(password, salt);
 
         return await <IUserResponse>this._userRepository.createUser(newUser);
+    }
+
+    /**
+     * Upload User's Profile picture
+     *
+     * @param image Profile Picture
+     * @param request Current User Payload
+     * @returns {Promise<IUserResponse>}
+     */
+    @Response<IErrorResponse>('default', 'Error occurred')
+    @Response<IUserResponse>('200', 'Success')
+    @Tags('Auth')
+    @Security('JWT')
+    @Post('uploadPicture')
+    public async uploadProfilePicture(@FormFile() image, @Request() request: eRequest): Promise<IUserResponse> {
+        console.log(image);
+        return;
     }
 
     /**

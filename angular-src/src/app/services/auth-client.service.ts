@@ -81,6 +81,20 @@ export class AuthClientService {
       });
   }
 
+  uploadProfilePicture(token: string, image: Blob): Observable<IUserResponse> {
+    this.authApi.configuration = new Configuration({
+      apiKeys: {
+        Authorization: token
+      }
+    });
+
+    return this.authApi.uploadProfilePicture(image, 'body', true)
+      .map((user: IUserResponse) => {
+        console.log(user);
+        return user;
+      });
+  }
+
   refreshLoginResult(): void {
     const token = this.localStorageService.getObject('token');
     if (tokenNotExpired('token') && token && !isEmpty(token)) {

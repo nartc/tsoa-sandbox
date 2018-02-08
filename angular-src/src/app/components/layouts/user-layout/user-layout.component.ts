@@ -7,6 +7,9 @@ import {AuthClientService} from '../../../services/auth-client.service';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/combineLatest';
+import {IErrorResponse, IUserResponse} from '../../../swagger-api';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-user-layout',
@@ -35,6 +38,19 @@ export class UserLayoutComponent implements OnInit {
       .subscribe(() => {
       }, (error: HttpErrorResponse) => {
         console.log('Error', error);
+      });
+  }
+
+  onFileSelected(event) {
+    const image = <File>event.target.files[0];
+    const imageAsBlob = new Blob([image], {type: image.type});
+    this.authService.uploadProfilePicture(this.authToken, imageAsBlob)
+      .catch((error: IErrorResponse) => {
+        console.log(error);
+        return Observable.of();
+      })
+      .subscribe((data: IUserResponse) => {
+        console.log(data);
       });
   }
 

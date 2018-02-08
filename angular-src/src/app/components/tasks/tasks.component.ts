@@ -3,6 +3,7 @@ import {Subscribe} from '../../utils/Subscribe';
 import {Observable} from 'rxjs/Observable';
 import {ITaskVm} from '../../swagger-api';
 import {ActivatedRoute} from '@angular/router';
+import {AuthClientService} from '../../services/auth-client.service';
 
 @Component({
   selector: 'app-tasks',
@@ -17,8 +18,10 @@ export class TasksComponent implements OnInit {
   pageTitle: string;
   loading = true;
   tasks: ITaskVm[];
+  image: File | Blob;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private authClientService: AuthClientService) {
   }
 
   ngOnInit() {

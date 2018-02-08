@@ -346,6 +346,49 @@
 				]
 			}
 		},
+		"/users/uploadPicture": {
+			"post": {
+				"operationId": "UploadProfilePicture",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/IUserResponse"
+						}
+					},
+					"default": {
+						"description": "Error occurred",
+						"schema": {
+							"$ref": "#/definitions/IErrorResponse"
+						}
+					}
+				},
+				"consumes": [
+					"multipart/form-data"
+				],
+				"description": "Upload User's Profile picture",
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"JWT": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "Profile Picture",
+						"in": "formData",
+						"name": "image",
+						"required": true,
+						"type": "file"
+					}
+				]
+			}
+		},
 		"/users/login": {
 			"post": {
 				"operationId": "Login",
@@ -623,6 +666,13 @@
 		"application/json"
 	],
 	"swagger": "2.0",
+	"securityDefinitions": {
+		"JWT": {
+			"type": "apiKey",
+			"name": "Authorization",
+			"in": "header"
+		}
+	},
 	"tags": [
 		{
 			"name": "Auth",
@@ -632,12 +682,5 @@
 			"name": "Task",
 			"description": "Access to Task's related RestAPI"
 		}
-	],
-	"securityDefinitions": {
-		"JWT": {
-			"type": "apiKey",
-			"name": "Authorization",
-			"in": "header"
-		}
-	}
+	]
 }

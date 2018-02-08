@@ -1,9 +1,13 @@
 /* tslint:disable */
+import { error } from 'util';
+
 import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { UserController } from './controllers/UserController';
 import { TaskController } from './controllers/TaskController';
 import * as passport from 'passport';
 import { expressAuthentication } from './middleware/security/passport';
+import * as multer from 'multer';
+const upload = multer();
 
 const models: TsoaRoute.Models = {
     "UserRole": {
@@ -141,6 +145,28 @@ export function RegisterRoutes(app: any) {
 
 
             const promise = controller.registerUser.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/users/uploadPicture',
+        authenticateMiddleware('jwt'),
+        upload.single('image'),
+        function(request: any, response: any, next: any) {
+            const args = {
+                image: { "in": "formData", "name": "image", "required": true, "dataType": "file" },
+                request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.uploadProfilePicture.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/users/login',
@@ -332,6 +358,8 @@ export function RegisterRoutes(app: any) {
                     return ValidateParam(args[key], request.body, models, name, errorFields);
                 case 'body-prop':
                     return ValidateParam(args[key], request.body[name], models, name, errorFields);
+                case 'formData':
+                    return ValidateParam(args[key], request.file, models, name, errorFields);
             }
         });
 

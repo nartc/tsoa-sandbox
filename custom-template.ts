@@ -1,4 +1,6 @@
 /* tslint:disable */
+import {error} from 'util';
+
 {{#if canImportByAlias}}
   import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 {{else}}
@@ -13,6 +15,10 @@ import { {{name}} } from '{{modulePath}}';
 {{#if authenticationModule}}
 import * as passport from 'passport';
 import { expressAuthentication } from '{{authenticationModule}}';
+{{/if}}
+{{#if useFileUpload}}
+import * as multer from 'multer';
+const upload = multer();
 {{/if}}
 
 const models: TsoaRoute.Models = {
@@ -41,6 +47,9 @@ export function RegisterRoutes(app: any) {
         app.{{method}}('{{../../basePath}}{{../path}}{{path}}',
             {{#if security.length}}
             authenticateMiddleware('jwt'),
+            {{/if}}
+            {{#if uploadFile}}
+            upload.single('{{uploadFileName}}'),
             {{/if}}
             function (request: any, response: any, next: any) {
             const args = {
@@ -115,6 +124,8 @@ export function RegisterRoutes(app: any) {
                 return ValidateParam(args[key], request.body, models, name, errorFields);
             case 'body-prop':
                 return ValidateParam(args[key], request.body[name], models, name, errorFields);
+            case 'formData':
+                return ValidateParam(args[key], request.file, models, name, errorFields);
             }
         });
 
